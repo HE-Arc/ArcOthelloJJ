@@ -19,6 +19,7 @@ namespace OthelloJJ
         private Player possibleMovePlayer;
 
         private int round;
+        private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
 
         public Game()
         {
@@ -88,7 +89,13 @@ namespace OthelloJJ
                     {
                         board[i, j] = emptyPlayer;
                     }
-                    //todo calculer les coups possibles pour le joueurs actuels
+                    if (board[i, j] == emptyPlayer)
+                    {
+                        if(IsCellValid(i, j))
+                        {
+                            board[i, j] = possibleMovePlayer;
+                        }
+                    }
                 }
             }
         }
@@ -97,17 +104,68 @@ namespace OthelloJJ
         {
             if (board[x, y] == possibleMovePlayer)
             {
-                if(round%2==0)
-                {
-                    board[x, y] = player1;
-                }
-                else
-                {
-                    board[x, y] = player2;
-                }
+                board[x, y] = ActualPlayer();                
                 Update();
             }
         }
 
+        private bool IsCellValid(int x, int y)
+        {
+            for(int i = 0; i<possibleMove.Length/2;++i)
+            {
+                if(IsWayValid(x,y,possibleMove[i,0], possibleMove[i,1]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        private bool IsWayValid(int x, int y, int vx, int vy)
+        {
+            x += vx;
+            y += vy;
+            if (IsInsideBoard(x,y))
+            {                
+                if(board[x,y] != OpponentPlayer())
+                {
+                    return false;
+                }
+            }
+            while (IsInsideBoard(x,y) && board[x,y] == OpponentPlayer())
+            {
+                x += vx;
+                y += vy;
+            }
+            if(IsInsideBoard(x,y) && board[x,y]==ActualPlayer())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private Player ActualPlayer()
+        {
+            if (round % 2 == 0)
+            {
+                return player1;
+            }
+            return player2;
+        }
+
+        private Player OpponentPlayer()
+        {
+            if (round % 2 == 1)
+            {
+                return player1;
+            }
+            return player2;
+        }
+
+        private bool IsInsideBoard(int x, int y)
+        {
+            return x < WIDTH && x >= 0 && y < HEIGHT && y >= 0;
+        }
     }
 }
