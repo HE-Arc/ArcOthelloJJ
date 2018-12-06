@@ -21,6 +21,18 @@ namespace OthelloJJ
         private int round;
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
 
+       private struct Position
+        {
+            private int x;
+            private int y;
+        }
+
+        private struct Cell
+        {
+            private int state;
+            private List possibleMove;
+        }
+
         public Game()
         {
             player1 = new Player("O", 1);
@@ -126,23 +138,16 @@ namespace OthelloJJ
         {
             x += vx;
             y += vy;
-            if (IsInsideBoard(x,y))
-            {                
-                if(board[x,y] != OpponentPlayer())
-                {
+            if (IsInsideBoard(x,y) && board[x,y] != OpponentPlayer())
+{
                     return false;
-                }
             }
             while (IsInsideBoard(x,y) && board[x,y] == OpponentPlayer())
             {
                 x += vx;
                 y += vy;
             }
-            if(IsInsideBoard(x,y) && board[x,y]==ActualPlayer())
-            {
-                return true;
-            }
-            return false;
+            return IsInsideBoard(x, y) && board[x, y] == ActualPlayer();
         }
 
         private Player ActualPlayer()

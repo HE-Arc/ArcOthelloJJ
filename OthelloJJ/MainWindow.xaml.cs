@@ -32,7 +32,7 @@ namespace OthelloJJ
             InitializeComponent();
             mainWindow = this;
             game = new Game();
-            //Création columne, ligne
+            //Create column, row
             for (int i = 0; i < Game.HEIGHT; ++i)
             {
                 grid.RowDefinitions.Add(new RowDefinition());
