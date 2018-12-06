@@ -11,11 +11,11 @@ namespace OthelloJJ
     {
         public static int WIDTH = 9;
         public static int HEIGHT = 7;
-        private Player[,] board = new Player[WIDTH, HEIGHT];
+        private Cell[,] board = new Cell[WIDTH, HEIGHT];
 
         private Player player1;
         private Player player2;
-        private Player emptyPlayer;
+        private int emptyState = 0;
         private Player possibleMovePlayer;
 
         private int round;
@@ -23,21 +23,36 @@ namespace OthelloJJ
 
        private struct Position
         {
-            private int x;
-            private int y;
+            public int X {get;set;}
+            public int Y { get; set; }
+            public Position(int x, int y)
+            {
+                this.X = x;
+                this.Y = y;
+            }
         }
 
-        private struct Cell
+        private class Cell
         {
-            private int state;
-            private List possibleMove;
+            public int State { get; set; }
+            public List<Position> possibleMove { get; }
+            public Cell(int state)
+            {
+                this.State = state;
+                possibleMove = new List<Position>();
+            }
+            
+            public void addPossibleMove(Position p)
+            {
+                possibleMove.Add(p);
+            }
         }
 
         public Game()
         {
             player1 = new Player("O", 1);
             player2 = new Player("X", 2);
-            emptyPlayer = new Player("", 0);
+//            emptyPlayer = new Player("", 0);
             possibleMovePlayer = new Player("U", -1);
             round = 0;
 
@@ -47,15 +62,15 @@ namespace OthelloJJ
                 {
                     if (i == 3 && j == 4 || i == 4 && j == 3)
                     {
-                        board[i, j] = player1;
+                        board[i, j] = new Cell(player1.Val);
                     }
                     else if (i == 4 && j == 4 || i == 3 && j == 3)
                     {
-                        board[i, j] = player2;
+                        board[i, j] = new Cell(player2.Val);
                     }
                     else
                     {
-                        board[i, j] = emptyPlayer;
+                        board[i, j] = new Cell(emptyState);
                     }
                 }
             }
@@ -76,7 +91,21 @@ namespace OthelloJJ
             {
                 for(int j=0;j<HEIGHT; j++)
                 {
-                    AddElement(board[i, j].Symbol, i, j);
+                    switch(board[i,j].State)
+                    {
+                        case -1:
+                            AddElement(possibleMovePlayer.Symbol, i, j);
+                            break;
+                        case 1:
+                            AddElement(player1.Symbol, i, j);
+                            break;
+                        case 2:
+                            AddElement(player2.Symbol, i, j);
+                            break;
+                        default:
+                            AddElement("", i, j);
+                            break;
+                    }
                 }
             }
         }
@@ -97,15 +126,15 @@ namespace OthelloJJ
             {
                 for (int j = 0; j < HEIGHT; j++)
                 {
-                    if(board[i,j] == possibleMovePlayer)
+                    if(board[i,j].State == possibleMovePlayer.Val)
                     {
-                        board[i, j] = emptyPlayer;
+                        board[i, j].State = emptyState;
                     }
-                    if (board[i, j] == emptyPlayer)
+                    if (board[i, j].State == emptyState)
                     {
                         if(IsCellValid(i, j))
                         {
-                            board[i, j] = possibleMovePlayer;
+                            board[i, j].State = possibleMovePlayer.Val;
                         }
                     }
                 }
@@ -114,9 +143,9 @@ namespace OthelloJJ
 
         public void CellSelected(int x, int y)
         {
-            if (board[x, y] == possibleMovePlayer)
+            if (board[x, y].State == possibleMovePlayer.Val)
             {
-                board[x, y] = ActualPlayer();                
+                board[x, y].State = ActualPlayer().Val;                
                 Update();
             }
         }
@@ -138,16 +167,16 @@ namespace OthelloJJ
         {
             x += vx;
             y += vy;
-            if (IsInsideBoard(x,y) && board[x,y] != OpponentPlayer())
+            if (IsInsideBoard(x,y) && board[x,y].State != OpponentPlayer().Val)
 {
                     return false;
             }
-            while (IsInsideBoard(x,y) && board[x,y] == OpponentPlayer())
+            while (IsInsideBoard(x,y) && board[x,y].State == OpponentPlayer().Val)
             {
                 x += vx;
                 y += vy;
             }
-            return IsInsideBoard(x, y) && board[x, y] == ActualPlayer();
+            return IsInsideBoard(x, y) && board[x, y].State == ActualPlayer().Val;
         }
 
         private Player ActualPlayer()
