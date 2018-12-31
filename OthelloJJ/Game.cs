@@ -158,7 +158,7 @@ namespace OthelloJJ
                 int xTemp = x + possibleMove[i, 0];
                 int yTemp = y + possibleMove[i, 1];
                 var listVisited = new List<Tuple<int, int>>();
-                while(IsInsideBoard(xTemp,y) && board[xTemp, yTemp].State == OpponentPlayer().Val)
+                while(IsInsideBoard(xTemp,yTemp) && board[xTemp, yTemp].State == OpponentPlayer().Val)
                 {
                     listVisited.Add(new Tuple<int, int>(xTemp, yTemp));
                     xTemp += possibleMove[i, 0];
