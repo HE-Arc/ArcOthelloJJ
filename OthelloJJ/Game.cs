@@ -145,9 +145,35 @@ namespace OthelloJJ
         {
             if (board[x, y].State == possibleMovePlayer.Val)
             {
-                board[x, y].State = ActualPlayer().Val;                
+                board[x, y].State = ActualPlayer().Val;
+                changeCells(x,y);
                 Update();
             }
+        }
+
+        private void changeCells(int x, int y)
+        {
+            for (int i = 0; i < possibleMove.Length / 2; ++i)
+            {
+                int xTemp = x + possibleMove[i, 0];
+                int yTemp = y + possibleMove[i, 1];
+                var listVisited = new List<Tuple<int, int>>();
+                while(IsInsideBoard(xTemp,y) && board[xTemp, yTemp].State == OpponentPlayer().Val)
+                {
+                    listVisited.Add(new Tuple<int, int>(xTemp, yTemp));
+                    xTemp += possibleMove[i, 0];
+                    yTemp += possibleMove[i, 1];
+                }
+                if(IsInsideBoard(xTemp, yTemp) && board[xTemp, yTemp].State == ActualPlayer().Val)
+                {
+                    foreach(var tuplePos in listVisited)
+                    {
+                        board[tuplePos.Item1, tuplePos.Item2].State = ActualPlayer().Val;
+                    }
+                }
+                
+            }
+
         }
 
         private bool IsCellValid(int x, int y)
@@ -168,8 +194,8 @@ namespace OthelloJJ
             x += vx;
             y += vy;
             if (IsInsideBoard(x,y) && board[x,y].State != OpponentPlayer().Val)
-{
-                    return false;
+            {
+                return false;
             }
             while (IsInsideBoard(x,y) && board[x,y].State == OpponentPlayer().Val)
             {
