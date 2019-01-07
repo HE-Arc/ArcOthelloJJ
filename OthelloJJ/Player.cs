@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Media;
 
 namespace OthelloJJ
 {
     class Player
     {
-        private readonly string symbol;
-        public string Symbol
+        private readonly ImageSource image;
+        public ImageSource Image
         {
-            get { return symbol; }
+            get { return image; }
         }
         private readonly int val;
         public int Val
@@ -19,9 +15,9 @@ namespace OthelloJJ
             get { return val; }
         }
 
-        public Player(string symbol, int value)
+        public Player(ImageSource image, int value)
         {
-            this.symbol = symbol;
+            this.image = image;
             this.val = value;
         }
     }

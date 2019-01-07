@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace OthelloJJ
 {
@@ -50,10 +55,9 @@ namespace OthelloJJ
 
         public Game()
         {
-            player1 = new Player("O", 1);
-            player2 = new Player("X", 2);
-//            emptyPlayer = new Player("", 0);
-            possibleMovePlayer = new Player("U", -1);
+            player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 1);
+            player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 2);
+            possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -1);
             round = 0;
 
             for (int i = 0; i < WIDTH; ++i)
@@ -94,30 +98,25 @@ namespace OthelloJJ
                     switch(board[i,j].State)
                     {
                         case -1:
-                            AddElement(possibleMovePlayer.Symbol, i, j);
+                            AddElement(possibleMovePlayer.Image, i, j);
                             break;
                         case 1:
-                            AddElement(player1.Symbol, i, j);
+                            AddElement(player1.Image, i, j);
                             break;
                         case 2:
-                            AddElement(player2.Symbol, i, j);
-                            break;
-                        default:
-                            AddElement("", i, j);
+                            AddElement(player2.Image, i, j);
                             break;
                     }
                 }
             }
         }
 
-        private void AddElement(String text, int x, int y)
+        private void AddElement(ImageSource image, int x, int y)
         {
-            TextBlock txt0 = new TextBlock();
-            txt0.Text = text;
-            txt0.FontSize = 30;
-            Grid.SetColumn(txt0, x);
-            Grid.SetRow(txt0, y);
-            MainWindow.mainWindow.grid.Children.Add(txt0);
+            Image img = new Image { Source = image };
+            Grid.SetColumn(img, x);
+            Grid.SetRow(img, y);
+            MainWindow.mainWindow.grid.Children.Add(img);
         }
 
         private void UpdatePossibleMove()
@@ -226,6 +225,30 @@ namespace OthelloJJ
         private bool IsInsideBoard(int x, int y)
         {
             return x < WIDTH && x >= 0 && y < HEIGHT && y >= 0;
+        }
+
+
+
+        //Source : https://stackoverflow.com/a/51227400/7570047
+        [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteObject([In] IntPtr hObject);
+
+        public ImageSource ImageSourceForBitmap(System.Drawing.Bitmap bmp)
+        {
+            var handle = bmp.GetHbitmap();
+            try
+            {
+                ImageSource newSource = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+                DeleteObject(handle);
+                return newSource;
+            }
+            catch (Exception ex)
+            {
+                DeleteObject(handle);
+                return null;
+            }
         }
     }
 }

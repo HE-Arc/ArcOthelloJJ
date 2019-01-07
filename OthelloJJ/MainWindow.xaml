@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:OthelloJJ"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid x:Name="grid" HorizontalAlignment="Left" Height="396" Margin="10,10,0,0" VerticalAlignment="Top" Width="780" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown"/>
+    <Grid x:Name="grid" Margin="10,10,2,13" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown"/>
 </Window>
