@@ -24,6 +24,8 @@ namespace OthelloJJ
         private Player player2;
         private int emptyState = 0;
         private Player possibleMovePlayer;
+        private ImageSource imgChrome;
+        private ImageSource imgMozilla;
 
         private int round;
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
@@ -57,6 +59,8 @@ namespace OthelloJJ
 
         public Game()
         {
+            imgChrome = this.ImageSourceForBitmap(Properties.Resources.chrome);
+            imgMozilla = this.ImageSourceForBitmap(Properties.Resources.firefox);
             ScoreChrome = 0;
             ScoreMozilla = 0;
             player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 1);
@@ -118,8 +122,20 @@ namespace OthelloJJ
                 }
             }
             DrawScore();
+            DrawCurrentPlayer();
         }
+        private void DrawCurrentPlayer(){
+            Player actual = this.ActualPlayer();
+            if(actual.Val==1)
+            {
+                MainWindow.mainWindow.ImageCurrentPlayer.Source = imgChrome;
+            }
+            else
+            {
+                MainWindow.mainWindow.ImageCurrentPlayer.Source = imgMozilla;
+            }
 
+        }
         private void DrawScore()
         {
             MainWindow.mainWindow.scoreChrome.Content = ScoreChrome;

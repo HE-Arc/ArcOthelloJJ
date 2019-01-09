@@ -8,19 +8,33 @@
         Title="MainWindow" Height="600" Width="800" MinWidth="800" MinHeight="600">
     <Grid x:Name="grid" Margin="10,10,1.6,13" ShowGridLines="False" PreviewMouseDown="Grid_PreviewMouseDown">
         <Grid.RowDefinitions>
-            <RowDefinition Height="101*"/>
-            <RowDefinition Height="220*"/>
-            <RowDefinition Height="76*"/>
+            <RowDefinition Height="139*"/>
+            <RowDefinition Height="408*"/>
+            <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="162*"/>
             <ColumnDefinition Width="427*"/>
             <ColumnDefinition Width="194*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gameGrid" Background="#7FB2CCDF" Grid.Column="1" Margin="10,10,1.6,13" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown"/>
-        <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="90.8,37.8,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="90.8,123.8,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="43.8,40.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  />
-        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="43.8,123.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" />
+        <Grid x:Name="gameGrid" Grid.Column="1" Margin="9.6,9.8,1.8,14.2" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown">
+            <Grid.Background>
+                <SolidColorBrush Color="#7FB2CCDF" Opacity="0.5"/>
+            </Grid.Background>
+        </Grid>
+        <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,37.8,-8.6,202.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,123.8,-8.6,116.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="44.2,40.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  />
+        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="44.2,123.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" />
+        <Border BorderBrush="LightGray" BorderThickness="2" Margin="0,139,0.4,1.2" Grid.RowSpan="2">
+            <Grid Margin="33.4,95.4,29.2,84.8" >
+                <Button x:Name="Button0Player" Content="0 player" Margin="10,26,0,0" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
+                <Button x:Name="Button1Player" Content="1 Joueur" Margin="10,74,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
+                <Button x:Name="Button2Player" Content="2 Joueurs" Margin="10,126,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
+                <Button x:Name="ButtonNettoyer" Content="Nettoyer" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="75"/>
+            </Grid>
+        </Border>
+        <Label x:Name="labelCurrentPlayer" Content="Tour de :" Grid.Column="1" HorizontalAlignment="Left" Margin="51.6,57,0,28.2" FontSize="36" FontFamily="Showcard Gothic" Width="179"/>
+        <Image x:Name="ImageCurrentPlayer" Grid.Column="1" Margin="253.6,29,0,28.2" HorizontalAlignment="Left" Width="79"/>
     </Grid>
 </Window>
