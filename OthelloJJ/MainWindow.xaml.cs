@@ -23,6 +23,8 @@ namespace OthelloJJ
         private static int WIDTH = 9;
         private static int HEIGHT = 7;
         private int[,] board = new int[WIDTH, HEIGHT];
+        private ImageSource imgMozilla;
+        private ImageSource imgChorme;
 
         private Game game;
         public static MainWindow mainWindow;
@@ -32,14 +34,18 @@ namespace OthelloJJ
             InitializeComponent();
             mainWindow = this;
             game = new Game();
+            imgChorme = game.ImageSourceForBitmap(Properties.Resources.chrome);
+            imgMozilla = game.ImageSourceForBitmap(Properties.Resources.firefox);
+            ImageChrome.Source = imgChorme;
+            ImageMozilla.Source = imgMozilla;
             //Create column, row
             for (int i = 0; i < Game.HEIGHT; ++i)
             {
-                grid.RowDefinitions.Add(new RowDefinition());
+                gameGrid.RowDefinitions.Add(new RowDefinition());
             }
             for (int i = 0; i < Game.WIDTH; ++i)
             {
-                grid.ColumnDefinitions.Add(new ColumnDefinition());
+                gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
             }
             
         }
@@ -47,7 +53,7 @@ namespace OthelloJJ
         private void Grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             //Find indices of selected cell
-            var point = Mouse.GetPosition(grid);
+            var point = Mouse.GetPosition(gameGrid);
 
             int row = 0;
             int col = 0;
@@ -55,7 +61,7 @@ namespace OthelloJJ
             double accumulatedWidth = 0.0;
 
             // calc row mouse was over
-            foreach (var rowDefinition in grid.RowDefinitions)
+            foreach (var rowDefinition in gameGrid.RowDefinitions)
             {
                 accumulatedHeight += rowDefinition.ActualHeight;
                 if (accumulatedHeight >= point.Y)
@@ -64,7 +70,7 @@ namespace OthelloJJ
             }
 
             // calc col mouse was over
-            foreach (var columnDefinition in grid.ColumnDefinitions)
+            foreach (var columnDefinition in gameGrid.ColumnDefinitions)
             {
                 accumulatedWidth += columnDefinition.ActualWidth;
                 if (accumulatedWidth >= point.X)

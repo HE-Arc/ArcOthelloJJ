@@ -16,6 +16,8 @@ namespace OthelloJJ
     {
         public static int WIDTH = 9;
         public static int HEIGHT = 7;
+        private int ScoreChrome { get; set; }
+        private int ScoreMozilla { get; set; }
         private Cell[,] board = new Cell[WIDTH, HEIGHT];
 
         private Player player1;
@@ -55,6 +57,8 @@ namespace OthelloJJ
 
         public Game()
         {
+            ScoreChrome = 0;
+            ScoreMozilla = 0;
             player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 1);
             player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 2);
             possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -1);
@@ -84,13 +88,15 @@ namespace OthelloJJ
         public void Update()
         {
             round++;
-            MainWindow.mainWindow.grid.Children.Clear();
+            MainWindow.mainWindow.gameGrid.Children.Clear();
             UpdatePossibleMove();
             Draw();
         }
 
         private void Draw()
         {
+            ScoreMozilla = 0;
+            ScoreChrome = 0;
             for(int i=0; i < WIDTH; ++i)
             {
                 for(int j=0;j<HEIGHT; j++)
@@ -101,22 +107,30 @@ namespace OthelloJJ
                             AddElement(possibleMovePlayer.Image, i, j);
                             break;
                         case 1:
+                            ScoreChrome++;
                             AddElement(player1.Image, i, j);
                             break;
                         case 2:
+                            ScoreMozilla++;
                             AddElement(player2.Image, i, j);
                             break;
                     }
                 }
             }
+            DrawScore();
         }
 
+        private void DrawScore()
+        {
+            MainWindow.mainWindow.scoreChrome.Content = ScoreChrome;
+            MainWindow.mainWindow.scoreMozilla.Content = ScoreMozilla;
+        }
         private void AddElement(ImageSource image, int x, int y)
         {
             Image img = new Image { Source = image };
             Grid.SetColumn(img, x);
             Grid.SetRow(img, y);
-            MainWindow.mainWindow.grid.Children.Add(img);
+            MainWindow.mainWindow.gameGrid.Children.Add(img);
         }
 
         private void UpdatePossibleMove()

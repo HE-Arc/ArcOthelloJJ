@@ -5,6 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OthelloJJ"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid x:Name="grid" Margin="10,10,2,13" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown"/>
+        Title="MainWindow" Height="600" Width="800" MinWidth="800" MinHeight="600">
+    <Grid x:Name="grid" Margin="10,10,1.6,13" ShowGridLines="False" PreviewMouseDown="Grid_PreviewMouseDown">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="101*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="76*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="162*"/>
+            <ColumnDefinition Width="427*"/>
+            <ColumnDefinition Width="194*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="gameGrid" Grid.Column="1" Margin="10,10,1.6,13" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown"/>
+        <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="90.8,37.8,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="90.8,123.8,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="43.8,40.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  />
+        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="43.8,123.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" />
+    </Grid>
 </Window>
