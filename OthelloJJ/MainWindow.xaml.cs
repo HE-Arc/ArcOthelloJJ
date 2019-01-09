@@ -79,5 +79,18 @@ namespace OthelloJJ
             }
             game.CellSelected(col, row);   
         }
+
+        private void ButtonNettoyer_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Voulez-vous vraiment redémarrer la partie",
+                                          "Redémarrer",
+                                          MessageBoxButton.YesNo,
+                                          MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                game.clean();
+            }
+            
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace OthelloJJ
         public static int HEIGHT = 7;
         private int ScoreChrome { get; set; }
         private int ScoreMozilla { get; set; }
-        private Cell[,] board = new Cell[WIDTH, HEIGHT];
+        private Cell[,] board;
 
         private Player player1;
         private Player player2;
@@ -59,6 +59,7 @@ namespace OthelloJJ
 
         public Game()
         {
+            board = new Cell[WIDTH, HEIGHT];
             imgChrome = this.ImageSourceForBitmap(Properties.Resources.chrome);
             imgMozilla = this.ImageSourceForBitmap(Properties.Resources.firefox);
             ScoreChrome = 0;
@@ -66,8 +67,22 @@ namespace OthelloJJ
             player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 1);
             player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 2);
             possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -1);
-            round = 0;
+           
+            initVars();
+            Update();
+        }
 
+        public void Update()
+        {
+            round++;
+            MainWindow.mainWindow.gameGrid.Children.Clear();
+            UpdatePossibleMove();
+            Draw();
+        }
+
+        private void initVars()
+        {
+            round = 0;
             for (int i = 0; i < WIDTH; ++i)
             {
                 for (int j = 0; j < HEIGHT; j++)
@@ -86,17 +101,7 @@ namespace OthelloJJ
                     }
                 }
             }
-            Update();
         }
-
-        public void Update()
-        {
-            round++;
-            MainWindow.mainWindow.gameGrid.Children.Clear();
-            UpdatePossibleMove();
-            Draw();
-        }
-
         private void Draw()
         {
             ScoreMozilla = 0;
@@ -178,6 +183,13 @@ namespace OthelloJJ
                 changeCells(x,y);
                 Update();
             }
+        }
+
+        public void clean()
+        {
+            board = new Cell[WIDTH, HEIGHT];
+            initVars();
+            Update();
         }
 
         private void changeCells(int x, int y)

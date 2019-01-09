@@ -31,7 +31,7 @@
                 <Button x:Name="Button0Player" Content="0 player" Margin="10,26,0,0" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
                 <Button x:Name="Button1Player" Content="1 Joueur" Margin="10,74,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
                 <Button x:Name="Button2Player" Content="2 Joueurs" Margin="10,126,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
-                <Button x:Name="ButtonNettoyer" Content="Nettoyer" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="ButtonNettoyer" Content="Redémarrer" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="75" Click="ButtonNettoyer_Click"/>
             </Grid>
         </Border>
         <Label x:Name="labelCurrentPlayer" Content="Tour de :" Grid.Column="1" HorizontalAlignment="Left" Margin="51.6,57,0,28.2" FontSize="36" FontFamily="Showcard Gothic" Width="179"/>
