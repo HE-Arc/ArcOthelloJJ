@@ -17,7 +17,7 @@
             <ColumnDefinition Width="427*"/>
             <ColumnDefinition Width="194*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gameGrid" Grid.Column="1" Margin="10,10,1.6,13" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown"/>
+        <Grid x:Name="gameGrid" Background="#7FB2CCDF" Grid.Column="1" Margin="10,10,1.6,13" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown"/>
         <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="90.8,37.8,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
         <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="90.8,123.8,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
         <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="43.8,40.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  />
