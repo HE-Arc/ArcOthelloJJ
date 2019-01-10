@@ -34,7 +34,7 @@
                 <Button x:Name="ButtonNettoyer" Content="Redémarrer" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="75" Click="ButtonNettoyer_Click"/>
             </Grid>
         </Border>
-        <Label x:Name="labelCurrentPlayer" Content="Tour de :" Grid.Column="1" Margin="52,29,195,0" FontSize="36" FontFamily="Showcard Gothic" Height="54" VerticalAlignment="Top"/>
-        <Image x:Name="ImageCurrentPlayer" Grid.Column="1" Margin="254,10,93,0" Height="82" VerticalAlignment="Top"/>
+        <Image x:Name="ImageCurrentPlayer" Margin="244,21,103,10" Grid.Column="1"/>
+        <Label x:Name="labelCurrentPlayer" Margin="59,36,187,23" FontSize="36" FontFamily="Showcard Gothic" HorizontalAlignment="Center" Width="180" Content="TOUR DE :" Grid.Column="1"/>
     </Grid>
 </Window>
