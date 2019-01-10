@@ -8,25 +8,25 @@
         Title="MainWindow" Height="600" Width="800" MinWidth="800" MinHeight="600">
     <Grid x:Name="grid" Margin="10,10,1.6,13" ShowGridLines="False" PreviewMouseDown="Grid_PreviewMouseDown">
         <Grid.RowDefinitions>
-            <RowDefinition Height="139*"/>
-            <RowDefinition Height="408*"/>
+            <RowDefinition Height="113*" MaxHeight="113"/>
+            <RowDefinition Height="433*"/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="162*"/>
+            <ColumnDefinition Width="162*" MaxWidth="162"/>
             <ColumnDefinition Width="427*"/>
-            <ColumnDefinition Width="194*"/>
+            <ColumnDefinition Width="194*" MaxWidth="194"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gameGrid" Grid.Column="1" Margin="9.6,9.8,1.8,14.2" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown">
+        <Grid x:Name="gameGrid" Grid.Column="1" Margin="10,10,2,14" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown">
             <Grid.Background>
                 <SolidColorBrush Color="#7FB2CCDF" Opacity="0.5"/>
             </Grid.Background>
         </Grid>
-        <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,37.8,-8.6,202.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,123.8,-8.6,116.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="44.2,40.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  />
-        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="44.2,123.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" />
-        <Border BorderBrush="LightGray" BorderThickness="2" Margin="0,139,0.4,1.2" Grid.RowSpan="2">
+        <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91,38,-9,202" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91,124,-9,116" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="44,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  />
+        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="44,124,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" />
+        <Border BorderBrush="LightGray" BorderThickness="2" Margin="0,6,0,1" Grid.Row="1">
             <Grid Margin="33.4,95.4,29.2,84.8" >
                 <Button x:Name="Button0Player" Content="0 player" Margin="10,26,0,0" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
                 <Button x:Name="Button1Player" Content="1 Joueur" Margin="10,74,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
@@ -34,7 +34,7 @@
                 <Button x:Name="ButtonNettoyer" Content="Redémarrer" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="75" Click="ButtonNettoyer_Click"/>
             </Grid>
         </Border>
-        <Label x:Name="labelCurrentPlayer" Content="Tour de :" Grid.Column="1" HorizontalAlignment="Left" Margin="51.6,57,0,28.2" FontSize="36" FontFamily="Showcard Gothic" Width="179"/>
-        <Image x:Name="ImageCurrentPlayer" Grid.Column="1" Margin="253.6,29,0,28.2" HorizontalAlignment="Left" Width="79"/>
+        <Label x:Name="labelCurrentPlayer" Content="Tour de :" Grid.Column="1" Margin="52,29,195,0" FontSize="36" FontFamily="Showcard Gothic" Height="54" VerticalAlignment="Top"/>
+        <Image x:Name="ImageCurrentPlayer" Grid.Column="1" Margin="254,10,93,0" Height="82" VerticalAlignment="Top"/>
     </Grid>
 </Window>
