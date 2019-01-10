@@ -2,22 +2,16 @@
 
 namespace OthelloJJ
 {
-    class Player
+    class Player_old
     {
-        private readonly ImageSource image;
-        public ImageSource Image
-        {
-            get { return image; }
-        }
         private readonly int val;
         public int Val
         {
             get { return val; }
         }
 
-        public Player(ImageSource image, int value)
+        public Player_old(int value)
         {
-            this.image = image;
             this.val = value;
         }
     }
