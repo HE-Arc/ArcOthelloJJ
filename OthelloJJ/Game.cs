@@ -18,17 +18,28 @@ namespace OthelloJJ
         public static int HEIGHT = 7;
         private int ScoreChrome { get; set; }
         private int ScoreMozilla { get; set; }
-        private Cell[,] board;
+        private int[,] board;
 
         private Player player1;
         private Player player2;
-        private int emptyState = 0;
         private Player possibleMovePlayer;
-        private ImageSource imgChrome;
-        private ImageSource imgMozilla;
+        private int emptyState = 0;
 
         private int round;
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
+
+        private struct Player
+        {
+            public int Val { get; }
+            public ImageSource Img { get; }
+            public TimeSpan time { get; set; }
+            public Player(ImageSource img , int val, TimeSpan time)
+            {
+                this.Val = val;
+                this.Img = img;
+                this.time = time;
+            }
+        }
 
        private struct Position
         {
@@ -59,14 +70,14 @@ namespace OthelloJJ
 
         public Game()
         {
-            board = new Cell[WIDTH, HEIGHT];
-            imgChrome = this.ImageSourceForBitmap(Properties.Resources.chrome);
-            imgMozilla = this.ImageSourceForBitmap(Properties.Resources.firefox);
+            board = new int[WIDTH, HEIGHT];
             ScoreChrome = 0;
             ScoreMozilla = 0;
+
             player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 1,new TimeSpan(0,0,0));
             player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 2,new TimeSpan(0,0,0));
             possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -1,new TimeSpan(0,0,0));
+
            
             initVars();
             Update();
@@ -89,15 +100,15 @@ namespace OthelloJJ
                 {
                     if (i == 3 && j == 4 || i == 4 && j == 3)
                     {
-                        board[i, j] = new Cell(player1.Val);
+                        board[i, j] = player1.Val;
                     }
                     else if (i == 4 && j == 4 || i == 3 && j == 3)
                     {
-                        board[i, j] = new Cell(player2.Val);
+                        board[i, j] = player2.Val;
                     }
                     else
                     {
-                        board[i, j] = new Cell(emptyState);
+                        board[i, j] = emptyState;
                     }
                 }
             }
@@ -108,36 +119,33 @@ namespace OthelloJJ
             ScoreChrome = 0;
             for(int i=0; i < WIDTH; ++i)
             {
-                for(int j=0;j<HEIGHT; j++)
+                for (int j = 0; j < HEIGHT; j++)
                 {
-                    switch(board[i,j].State)
+                    if (board[i, j] == possibleMovePlayer.Val)
+                    { 
+                        AddElement(possibleMovePlayer.Img, i, j);
+                    } else if(board[i, j] == player1.Val)
                     {
-                        case -1:
-                            AddElement(possibleMovePlayer.Image, i, j);
-                            break;
-                        case 1:
-                            ScoreChrome++;
-                            AddElement(player1.Image, i, j);
-                            break;
-                        case 2:
-                            ScoreMozilla++;
-                            AddElement(player2.Image, i, j);
-                            break;
-                    }
+                        ScoreChrome++;
+                        AddElement(player1.Img, i, j);
+                    } else if(board[i, j] == player2.Val)
+                    {
+                        ScoreMozilla++;
+                        AddElement(player2.Img, i, j);
+                    }   
                 }
             }
             DrawScore();
             DrawCurrentPlayer();
         }
         private void DrawCurrentPlayer(){
-            Player actual = this.ActualPlayer();
-            if(actual.Val==1)
+            if(ActualPlayer().Val==player1.Val)
             {
-                MainWindow.mainWindow.ImageCurrentPlayer.Source = imgChrome;
+                MainWindow.mainWindow.ImageCurrentPlayer.Source = player1.Img;
             }
             else
             {
-                MainWindow.mainWindow.ImageCurrentPlayer.Source = imgMozilla;
+                MainWindow.mainWindow.ImageCurrentPlayer.Source = player2.Img;
             }
 
         }
@@ -160,15 +168,15 @@ namespace OthelloJJ
             {
                 for (int j = 0; j < HEIGHT; j++)
                 {
-                    if(board[i,j].State == possibleMovePlayer.Val)
+                    if(board[i,j] == possibleMovePlayer.Val)
                     {
-                        board[i, j].State = emptyState;
+                        board[i, j] = emptyState;
                     }
-                    if (board[i, j].State == emptyState)
+                    if (board[i, j] == emptyState)
                     {
                         if(IsCellValid(i, j))
                         {
-                            board[i, j].State = possibleMovePlayer.Val;
+                            board[i, j] = possibleMovePlayer.Val;
                         }
                     }
                 }
@@ -177,9 +185,9 @@ namespace OthelloJJ
 
         public void CellSelected(int x, int y)
         {
-            if (board[x, y].State == possibleMovePlayer.Val)
+            if (board[x, y] == possibleMovePlayer.Val)
             {
-                board[x, y].State = ActualPlayer().Val;
+                board[x, y] = ActualPlayer().Val;
                 changeCells(x,y);
                 Update();
             }
@@ -187,7 +195,7 @@ namespace OthelloJJ
 
         public void clean()
         {
-            board = new Cell[WIDTH, HEIGHT];
+            board = new int[WIDTH, HEIGHT];
             initVars();
             Update();
         }
@@ -199,17 +207,17 @@ namespace OthelloJJ
                 int xTemp = x + possibleMove[i, 0];
                 int yTemp = y + possibleMove[i, 1];
                 var listVisited = new List<Tuple<int, int>>();
-                while(IsInsideBoard(xTemp,yTemp) && board[xTemp, yTemp].State == OpponentPlayer().Val)
+                while(IsInsideBoard(xTemp,yTemp) && board[xTemp, yTemp] == OpponentPlayer().Val)
                 {
                     listVisited.Add(new Tuple<int, int>(xTemp, yTemp));
                     xTemp += possibleMove[i, 0];
                     yTemp += possibleMove[i, 1];
                 }
-                if(IsInsideBoard(xTemp, yTemp) && board[xTemp, yTemp].State == ActualPlayer().Val)
+                if(IsInsideBoard(xTemp, yTemp) && board[xTemp, yTemp] == ActualPlayer().Val)
                 {
                     foreach(var tuplePos in listVisited)
                     {
-                        board[tuplePos.Item1, tuplePos.Item2].State = ActualPlayer().Val;
+                        board[tuplePos.Item1, tuplePos.Item2] = ActualPlayer().Val;
                     }
                 }
                 
@@ -234,16 +242,16 @@ namespace OthelloJJ
         {
             x += vx;
             y += vy;
-            if (IsInsideBoard(x,y) && board[x,y].State != OpponentPlayer().Val)
+            if (IsInsideBoard(x,y) && board[x,y] != OpponentPlayer().Val)
             {
                 return false;
             }
-            while (IsInsideBoard(x,y) && board[x,y].State == OpponentPlayer().Val)
+            while (IsInsideBoard(x,y) && board[x,y] == OpponentPlayer().Val)
             {
                 x += vx;
                 y += vy;
             }
-            return IsInsideBoard(x, y) && board[x, y].State == ActualPlayer().Val;
+            return IsInsideBoard(x, y) && board[x, y] == ActualPlayer().Val;
         }
 
         private Player ActualPlayer()
