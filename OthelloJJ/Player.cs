@@ -1,10 +1,12 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
 
 namespace OthelloJJ
 {
     class Player
     {
         private readonly ImageSource image;
+        private TimeSpan time { get; set; }
         public ImageSource Image
         {
             get { return image; }
@@ -15,10 +17,11 @@ namespace OthelloJJ
             get { return val; }
         }
 
-        public Player(ImageSource image, int value)
+        public Player(ImageSource image, int value,TimeSpan time)
         {
             this.image = image;
             this.val = value;
+            this.time = time;
         }
     }
 }

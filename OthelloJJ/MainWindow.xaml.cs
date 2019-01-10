@@ -82,15 +82,58 @@ namespace OthelloJJ
 
         private void ButtonNettoyer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Voulez-vous vraiment redémarrer la partie",
-                                          "Redémarrer",
-                                          MessageBoxButton.YesNo,
-                                          MessageBoxImage.Warning);
+  
+            MessageBoxResult result = ShowMessageBoxAndGetRespons("Redémarrer", "Voulez-vous vraiment redémarrer la partie");
             if (result == MessageBoxResult.Yes)
             {
                 game.clean();
             }
             
+        }
+
+        private void Button2Player_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = ShowMessageBoxAndGetRespons("2 Joueurs", "Voulez-vous vraiment lancer une partie 2 Joueurs");
+            if (result == MessageBoxResult.Yes)
+            {
+                Button0Player.IsEnabled = true;
+                Button1Player.IsEnabled = true;
+                Button2Player.IsEnabled = false;
+            }
+
+        }
+
+        private void Button0Player_Click(object sender, RoutedEventArgs e)
+        {
+
+            MessageBoxResult result = ShowMessageBoxAndGetRespons("0 Joueurs", "Voulez-vous vraiment lancer une partie 0 Joueurs");
+            if (result == MessageBoxResult.Yes)
+            {
+                Button0Player.IsEnabled = false;
+                Button1Player.IsEnabled = true;
+                Button2Player.IsEnabled = true;
+            }
+
+        }
+
+        private void Button1Player_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = ShowMessageBoxAndGetRespons("1 Joueurs", "Voulez-vous vraiment lancer une partie 1 Joueurs");
+            if (result == MessageBoxResult.Yes)
+            {
+                Button0Player.IsEnabled = true;
+                Button1Player.IsEnabled = false;
+                Button2Player.IsEnabled = true;
+            }
+
+        }
+
+        public MessageBoxResult ShowMessageBoxAndGetRespons(string title,string text)
+        {
+            return MessageBox.Show(text,
+                              title,
+                              MessageBoxButton.YesNo,
+                              MessageBoxImage.Warning);
         }
     }
 }

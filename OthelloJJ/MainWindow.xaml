@@ -22,19 +22,21 @@
                 <SolidColorBrush Color="#7FB2CCDF" Opacity="0.5"/>
             </Grid.Background>
         </Grid>
-        <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91,38,-9,202" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91,124,-9,116" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="44,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42"  />
-        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="44,124,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" />
+        <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,38.2,-8.6,332.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,162.2,-8.6,211.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,69.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.467,1.626"  />
+        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,196.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.619,1.593" />
         <Border BorderBrush="LightGray" BorderThickness="2" Margin="0,6,0,1" Grid.Row="1">
             <Grid Margin="33.4,95.4,29.2,84.8" >
-                <Button x:Name="Button0Player" Content="0 player" Margin="10,26,0,0" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
-                <Button x:Name="Button1Player" Content="1 Joueur" Margin="10,74,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
-                <Button x:Name="Button2Player" Content="2 Joueurs" Margin="10,126,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
+                <Button x:Name="Button0Player" Content="0 Joueur" Margin="10,26,0,0" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" Click="Button0Player_Click"/>
+                <Button x:Name="Button1Player" Content="1 Joueur" Margin="10,74,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" Click="Button1Player_Click"/>
+                <Button x:Name="Button2Player" Content="2 Joueurs" Margin="10,126,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" IsEnabled="False" Click="Button2Player_Click"/>
                 <Button x:Name="ButtonNettoyer" Content="Redémarrer" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="75" Click="ButtonNettoyer_Click"/>
             </Grid>
         </Border>
-        <Label x:Name="labelCurrentPlayer" Content="Tour de :" Grid.Column="1" Margin="52,29,195,0" FontSize="36" FontFamily="Showcard Gothic" Height="54" VerticalAlignment="Top"/>
-        <Image x:Name="ImageCurrentPlayer" Grid.Column="1" Margin="254,10,93,0" Height="82" VerticalAlignment="Top"/>
+        <Label x:Name="labelCurrentPlayer" Content="Tour de :" Grid.Column="1" Margin="52.4,29,194.8,0" FontSize="36" FontFamily="Showcard Gothic" Height="54" VerticalAlignment="Top"/>
+        <Image x:Name="ImageCurrentPlayer" Grid.Column="1" Margin="270.4,10,0,0" Height="82" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80"/>
+        <Label x:Name="scoreMozilla_Copy" Content="00:00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,93.2,-8.6,277.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
+        <Label x:Name="scoreMozilla_Copy1" Content="00:00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,223.2,-8.6,147.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
     </Grid>
 </Window>

@@ -64,9 +64,9 @@ namespace OthelloJJ
             imgMozilla = this.ImageSourceForBitmap(Properties.Resources.firefox);
             ScoreChrome = 0;
             ScoreMozilla = 0;
-            player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 1);
-            player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 2);
-            possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -1);
+            player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 1,new TimeSpan(0,0,0));
+            player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 2,new TimeSpan(0,0,0));
+            possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -1,new TimeSpan(0,0,0));
            
             initVars();
             Update();
