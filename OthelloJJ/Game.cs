@@ -23,7 +23,7 @@ namespace OthelloJJ
         private Player player1;
         private Player player2;
         private Player possibleMovePlayer;
-        private int emptyState = 0;
+        private int emptyState = -1;
 
         private int round;
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
@@ -74,9 +74,9 @@ namespace OthelloJJ
             ScoreChrome = 0;
             ScoreMozilla = 0;
 
-            player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 1,new TimeSpan(0,0,0));
-            player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 2,new TimeSpan(0,0,0));
-            possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -1,new TimeSpan(0,0,0));
+            player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0));
+            player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
+            possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -2,new TimeSpan(0,0,0));
 
            
             initVars();
