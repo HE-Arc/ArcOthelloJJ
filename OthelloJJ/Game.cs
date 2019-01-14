@@ -25,9 +25,9 @@ namespace OthelloJJ
         private int ScoreMozilla { get; set; }
         private int[,] board;
 
-        private Player player1;
-        private Player player2;
-        private Player possibleMovePlayer;
+        private Data player1;
+        private Data player2;
+        private Data possibleMovePlayer;
         private int emptyState = -1;
 
         private int round;
@@ -36,13 +36,13 @@ namespace OthelloJJ
         private bool isLastPlayed;
 
         [Serializable]
-        private struct Player
+        private struct Data
         {
             public int Val { get; }
             [NonSerialized]
             public ImageSource img;
             public TimeSpan time { get; set; }
-            public Player(ImageSource img , int val, TimeSpan time)
+            public Data(ImageSource img , int val, TimeSpan time)
             {
                 this.Val = val;
                 this.img = img;
@@ -86,9 +86,9 @@ namespace OthelloJJ
             ScoreMozilla = 0;
             isLastPlayed = false;
 
-            player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0));
-            player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
-            possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -2,new TimeSpan(0,0,0));
+            player1 = new Data(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0));
+            player2 = new Data(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
+            possibleMovePlayer = new Data(ImageSourceForBitmap(Properties.Resources.possibleMove), -2,new TimeSpan(0,0,0));
 
             SetTimer();
             initVars();
@@ -326,7 +326,7 @@ namespace OthelloJJ
             return IsInsideBoard(x, y) && board[x, y] == ActualPlayer().Val;
         }
 
-        private ref Player ActualPlayer()
+        private ref Data ActualPlayer()
         {
             if (round % 2 == 0)
             {
@@ -335,7 +335,7 @@ namespace OthelloJJ
             return ref player2;
         }
 
-        private ref  Player OpponentPlayer()
+        private ref  Data OpponentPlayer()
         {
             if (round % 2 == 1)
             {
