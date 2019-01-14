@@ -30,6 +30,9 @@ namespace OthelloJJ
         private Data possibleMovePlayer;
         private int emptyState = -1;
 
+        private IPlayable.IPlayable ia1 = null;
+        private IPlayable.IPlayable ia2 = null;
+
         private int round;
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
 
@@ -47,35 +50,6 @@ namespace OthelloJJ
                 this.Val = val;
                 this.img = img;
                 this.time = time;
-            }
-        }
-
-        [Serializable]
-        private struct Position
-        {
-            public int X {get;set;}
-            public int Y { get; set; }
-            public Position(int x, int y)
-            {
-                this.X = x;
-                this.Y = y;
-            }
-        }
-
-        [Serializable]
-        private class Cell
-        {
-            public int State { get; set; }
-            public List<Position> possibleMove { get; }
-            public Cell(int state)
-            {
-                this.State = state;
-                possibleMove = new List<Position>();
-            }
-            
-            public void addPossibleMove(Position p)
-            {
-                possibleMove.Add(p);
             }
         }
 
