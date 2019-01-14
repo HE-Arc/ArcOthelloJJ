@@ -37,7 +37,7 @@ namespace OthelloJJ
         private bool isLastPlayed;
 
         [Serializable]
-        private struct Data
+        private class Data
         {
             public int Val { get; }
             [NonSerialized]
@@ -89,7 +89,7 @@ namespace OthelloJJ
             // Create a timer with a one second interval.
             timer = new DispatcherTimer();
             // Hook up the Elapsed event for the timer. 
-            timer.Tick += new EventHandler(OnTimedEvent);
+            timer.Tick += OnTimedEvent;
             timer.Interval = new TimeSpan(0, 0, 1);
         }
         private  void OnTimedEvent(Object sender, EventArgs e)
@@ -310,22 +310,22 @@ namespace OthelloJJ
             return IsInsideBoard(x, y) && board[x, y] == ActualPlayer().Val;
         }
 
-        private ref Data ActualPlayer()
+        private Data ActualPlayer()
         {
             if (round % 2 == 0)
             {
-                return ref player1;
+                return player1;
             }
-            return ref player2;
+            return  player2;
         }
 
-        private ref  Data OpponentPlayer()
+        private   Data OpponentPlayer()
         {
             if (round % 2 == 1)
             {
-                return ref player1;
+                return  player1;
             }
-            return ref player2;
+            return  player2;
         }
 
         private bool IsInsideBoard(int x, int y)
@@ -365,6 +365,9 @@ namespace OthelloJJ
             possibleMovePlayer.img = ImageSourceForBitmap(Properties.Resources.possibleMove);
             Draw();
             DrawTime();
+            timer.Tick -= OnTimedEvent;
+            timer.Tick += OnTimedEvent;
+            timer.Start();
 
         }
     }
