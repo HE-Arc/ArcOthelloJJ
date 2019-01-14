@@ -31,6 +31,8 @@ namespace OthelloJJ
         private int round;
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
 
+        private bool isLastPlayed;
+
         private struct Player
         {
             public int Val { get; }
@@ -76,6 +78,7 @@ namespace OthelloJJ
             board = new int[WIDTH, HEIGHT];
             ScoreChrome = 0;
             ScoreMozilla = 0;
+            isLastPlayed = false;
 
             player1 = new Player(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0));
             player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
@@ -187,6 +190,7 @@ namespace OthelloJJ
 
         private void UpdatePossibleMove()
         {
+            bool canPlay = false;
             for (int i = 0; i < WIDTH; ++i)
             {
                 for (int j = 0; j < HEIGHT; j++)
@@ -199,12 +203,41 @@ namespace OthelloJJ
                     {
                         if(IsCellValid(i, j))
                         {
-                         
+                            canPlay = true;
+
                             board[i, j] = possibleMovePlayer.Val;
 
                         }
                     }
                 }
+            }
+            if (canPlay == false && isLastPlayed == false)
+            {
+                Draw();
+                string msg;
+                if (ScoreChrome > ScoreMozilla)
+                {
+                    msg = $"Partie terminé, Chrome à gagné avec : {ScoreChrome} points\nFirefox a eu {ScoreMozilla}";
+                }
+                else if(ScoreChrome<ScoreMozilla)
+                {
+                    msg = $"Partie terminé, Firefox à gagné avec : {ScoreMozilla} points\nChrome a eu {ScoreChrome}";
+                }
+                else
+                {
+                    msg = $"Partie terminé, Chrome et Firefox sont à égalités avec : {ScoreChrome} points\n";
+                }
+                MessageBox.Show(msg);
+            }
+            else if (canPlay == false)
+            {
+                isLastPlayed = false;
+                timer.Stop();
+                Update();
+            }
+            else
+            {
+                isLastPlayed = true;
             }
         }
 
@@ -253,7 +286,6 @@ namespace OthelloJJ
                         board[tuplePos.Item1, tuplePos.Item2] = ActualPlayer().Val;
                     }
                 }
-                
             }
 
         }
