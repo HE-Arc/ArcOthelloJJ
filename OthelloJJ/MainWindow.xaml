@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OthelloJJ"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" MinWidth="800" MinHeight="600">
+        Title="OthelloJJ" Height="600" Width="800" MinWidth="800" MinHeight="600">
     <Grid x:Name="grid" Margin="10,10,1.6,13" ShowGridLines="False" PreviewMouseDown="Grid_PreviewMouseDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="113*" MaxHeight="113"/>
@@ -37,8 +37,8 @@
 
         <Image x:Name="ImageCurrentPlayer" Margin="244,21,103,10" Grid.Column="1"/>
         <Label x:Name="labelCurrentPlayer" Margin="59,36,187,23" FontSize="36" FontFamily="Showcard Gothic" HorizontalAlignment="Center" Width="180" Content="TOUR DE :" Grid.Column="1"/>
-        <Label x:Name="scoreMozilla_Copy" Content="00:00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,93.2,-8.6,277.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
-        <Label x:Name="scoreMozilla_Copy1" Content="00:00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,223.2,-8.6,147.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
+        <Label x:Name="TimeMozilla" Content="00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,93.2,-8.6,277.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
+        <Label x:Name="TimeChrome" Content="00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,223.2,-8.6,147.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
 
 
     </Grid>

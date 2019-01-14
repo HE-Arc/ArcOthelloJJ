@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace OthelloJJ
 {
@@ -16,6 +18,7 @@ namespace OthelloJJ
     {
         public static int WIDTH = 9;
         public static int HEIGHT = 7;
+        private static DispatcherTimer timer;
         private int ScoreChrome { get; set; }
         private int ScoreMozilla { get; set; }
         private int[,] board;
@@ -78,7 +81,7 @@ namespace OthelloJJ
             player2 = new Player(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
             possibleMovePlayer = new Player(ImageSourceForBitmap(Properties.Resources.possibleMove), -2,new TimeSpan(0,0,0));
 
-           
+            SetTimer();
             initVars();
             Update();
         }
@@ -90,7 +93,20 @@ namespace OthelloJJ
             UpdatePossibleMove();
             Draw();
         }
-
+        private void SetTimer()
+        {
+            // Create a timer with a one second interval.
+            timer = new DispatcherTimer();
+            // Hook up the Elapsed event for the timer. 
+            timer.Tick += new EventHandler(OnTimedEvent);
+            timer.Interval = new TimeSpan(0, 0, 1);
+        }
+        private  void OnTimedEvent(Object sender, EventArgs e)
+        {
+   
+            ActualPlayer().time = ActualPlayer().time.Add(new TimeSpan(0, 0, 1));
+            DrawTime();
+        }
         private void initVars()
         {
             round = 0;
@@ -149,6 +165,13 @@ namespace OthelloJJ
             }
 
         }
+        private void DrawTime()
+        {
+            
+            MainWindow.mainWindow.TimeChrome.Content = player1.time.ToString("mm':'ss");
+            MainWindow.mainWindow.TimeMozilla.Content = player2.time.ToString("mm':'ss");
+
+        }
         private void DrawScore()
         {
             MainWindow.mainWindow.scoreChrome.Content = ScoreChrome;
@@ -176,7 +199,9 @@ namespace OthelloJJ
                     {
                         if(IsCellValid(i, j))
                         {
+                         
                             board[i, j] = possibleMovePlayer.Val;
+
                         }
                     }
                 }
@@ -187,6 +212,10 @@ namespace OthelloJJ
         {
             if (board[x, y] == possibleMovePlayer.Val)
             {
+                if (!timer.IsEnabled)
+                {
+                    timer.Start();
+                }
                 board[x, y] = ActualPlayer().Val;
                 changeCells(x,y);
                 Update();
@@ -195,6 +224,10 @@ namespace OthelloJJ
 
         public void clean()
         {
+            timer.Stop();
+            player1.time = new TimeSpan(0, 0, 0);
+            player2.time = new TimeSpan(0, 0, 0);
+            DrawTime();
             board = new int[WIDTH, HEIGHT];
             initVars();
             Update();
@@ -254,22 +287,22 @@ namespace OthelloJJ
             return IsInsideBoard(x, y) && board[x, y] == ActualPlayer().Val;
         }
 
-        private Player ActualPlayer()
+        private ref Player ActualPlayer()
         {
             if (round % 2 == 0)
             {
-                return player1;
+                return ref player1;
             }
-            return player2;
+            return ref player2;
         }
 
-        private Player OpponentPlayer()
+        private ref  Player OpponentPlayer()
         {
             if (round % 2 == 1)
             {
-                return player1;
+                return ref player1;
             }
-            return player2;
+            return ref player2;
         }
 
         private bool IsInsideBoard(int x, int y)

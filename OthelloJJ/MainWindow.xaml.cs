@@ -82,7 +82,7 @@ namespace OthelloJJ
 
         private void ButtonNettoyer_Click(object sender, RoutedEventArgs e)
         {
-  
+            
             MessageBoxResult result = ShowMessageBoxAndGetRespons("Redémarrer", "Voulez-vous vraiment redémarrer la partie");
             if (result == MessageBoxResult.Yes)
             {
