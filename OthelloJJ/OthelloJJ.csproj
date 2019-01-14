@@ -69,7 +69,7 @@
     </Compile>
     <Compile Include="BinarySerialization.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="HumanPlayer.cs" />
+    <Compile Include="BoardJJ.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
