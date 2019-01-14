@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Timers;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Threading;
 
 namespace OthelloJJ
 {
+    [Serializable]
     class Game
     {
         public static int WIDTH = 9;
@@ -33,20 +35,23 @@ namespace OthelloJJ
 
         private bool isLastPlayed;
 
+        [Serializable]
         private struct Player
         {
             public int Val { get; }
-            public ImageSource Img { get; }
+            [NonSerialized]
+            public ImageSource img;
             public TimeSpan time { get; set; }
             public Player(ImageSource img , int val, TimeSpan time)
             {
                 this.Val = val;
-                this.Img = img;
+                this.img = img;
                 this.time = time;
             }
         }
 
-       private struct Position
+        [Serializable]
+        private struct Position
         {
             public int X {get;set;}
             public int Y { get; set; }
@@ -57,6 +62,7 @@ namespace OthelloJJ
             }
         }
 
+        [Serializable]
         private class Cell
         {
             public int State { get; set; }
@@ -106,7 +112,6 @@ namespace OthelloJJ
         }
         private  void OnTimedEvent(Object sender, EventArgs e)
         {
-   
             ActualPlayer().time = ActualPlayer().time.Add(new TimeSpan(0, 0, 1));
             DrawTime();
         }
@@ -134,6 +139,7 @@ namespace OthelloJJ
         }
         private void Draw()
         {
+
             ScoreMozilla = 0;
             ScoreChrome = 0;
             for(int i=0; i < WIDTH; ++i)
@@ -142,15 +148,15 @@ namespace OthelloJJ
                 {
                     if (board[i, j] == possibleMovePlayer.Val)
                     { 
-                        AddElement(possibleMovePlayer.Img, i, j);
+                        AddElement(possibleMovePlayer.img, i, j);
                     } else if(board[i, j] == player1.Val)
                     {
                         ScoreChrome++;
-                        AddElement(player1.Img, i, j);
+                        AddElement(player1.img, i, j);
                     } else if(board[i, j] == player2.Val)
                     {
                         ScoreMozilla++;
-                        AddElement(player2.Img, i, j);
+                        AddElement(player2.img, i, j);
                     }   
                 }
             }
@@ -160,11 +166,11 @@ namespace OthelloJJ
         private void DrawCurrentPlayer(){
             if(ActualPlayer().Val==player1.Val)
             {
-                MainWindow.mainWindow.ImageCurrentPlayer.Source = player1.Img;
+                MainWindow.mainWindow.ImageCurrentPlayer.Source = player1.img;
             }
             else
             {
-                MainWindow.mainWindow.ImageCurrentPlayer.Source = player2.Img;
+                MainWindow.mainWindow.ImageCurrentPlayer.Source = player2.img;
             }
 
         }
@@ -264,6 +270,7 @@ namespace OthelloJJ
             board = new int[WIDTH, HEIGHT];
             initVars();
             Update();
+            
         }
 
         private void changeCells(int x, int y)
@@ -365,5 +372,17 @@ namespace OthelloJJ
                 return null;
             }
         }
+
+        [OnDeserialized]
+        internal void OnDeserializedMethod(StreamingContext context)
+        {
+            player1.img = ImageSourceForBitmap(Properties.Resources.chrome);
+            player2.img = ImageSourceForBitmap(Properties.Resources.firefox);
+            possibleMovePlayer.img = ImageSourceForBitmap(Properties.Resources.possibleMove);
+            Draw();
+            DrawTime();
+
+        }
     }
+
 }

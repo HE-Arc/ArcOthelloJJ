@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace OthelloJJ
 {
@@ -96,35 +100,63 @@ namespace OthelloJJ
             MessageBoxResult result = ShowMessageBoxAndGetRespons("2 Joueurs", "Voulez-vous vraiment lancer une partie 2 Joueurs");
             if (result == MessageBoxResult.Yes)
             {
-                Button0Player.IsEnabled = true;
-                Button1Player.IsEnabled = true;
                 Button2Player.IsEnabled = false;
             }
 
         }
 
-        private void Button0Player_Click(object sender, RoutedEventArgs e)
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-
-            MessageBoxResult result = ShowMessageBoxAndGetRespons("0 Joueurs", "Voulez-vous vraiment lancer une partie 0 Joueurs");
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                Button0Player.IsEnabled = false;
-                Button1Player.IsEnabled = true;
-                Button2Player.IsEnabled = true;
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    BinarySerialization.WriteToBinaryFile(saveFileDialog.FileName,game);
+                }
             }
+            catch (SerializationException exp)
+            {
+                MessageBox.Show("Erreur veuillez reessayer",
+                             "Erreur de sauvegarde",
+                             MessageBoxButton.OK,
+                             MessageBoxImage.Error);
+            }
+           
+
 
         }
 
-        private void Button1Player_Click(object sender, RoutedEventArgs e)
+        private void ButtonRestore_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = ShowMessageBoxAndGetRespons("1 Joueurs", "Voulez-vous vraiment lancer une partie 1 Joueurs");
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                Button0Player.IsEnabled = true;
-                Button1Player.IsEnabled = false;
-                Button2Player.IsEnabled = true;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    Game loadedGamed = BinarySerialization.ReadFromBinaryFile<Game>(openFileDialog.FileName);
+                    this.game = loadedGamed;
+                                    }
             }
+            catch (SerializationException exp)
+            {
+                MessageBox.Show("Erreur veuillez reessayer",
+                             "Le fichier n'est pas de type .jj",
+                             MessageBoxButton.OK,
+                             MessageBoxImage.Error);
+            }
+           
+            
 
         }
 
