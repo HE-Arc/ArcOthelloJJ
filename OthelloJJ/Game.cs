@@ -30,8 +30,6 @@ namespace OthelloJJ
         private Data possibleMovePlayer;
         private int emptyState = -1;
 
-        private IPlayable.IPlayable ia1 = null;
-        private IPlayable.IPlayable ia2 = null;
 
         private int round;
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
@@ -45,11 +43,13 @@ namespace OthelloJJ
             [NonSerialized]
             public ImageSource img;
             public TimeSpan time { get; set; }
-            public Data(ImageSource img , int val, TimeSpan time)
+            public IPlayable.IPlayable IA { get;}
+            public Data(ImageSource img , int val, TimeSpan time, IPlayable.IPlayable ia = null)
             {
                 this.Val = val;
                 this.img = img;
                 this.time = time;
+                this.IA = ia;
             }
         }
 
@@ -60,7 +60,7 @@ namespace OthelloJJ
             ScoreMozilla = 0;
             isLastPlayed = false;
 
-            player1 = new Data(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0));
+            player1 = new Data(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0), new BoardJJ());
             player2 = new Data(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
             possibleMovePlayer = new Data(ImageSourceForBitmap(Properties.Resources.possibleMove), -2,new TimeSpan(0,0,0));
 
@@ -74,7 +74,15 @@ namespace OthelloJJ
             round++;
             MainWindow.mainWindow.gameGrid.Children.Clear();
             UpdatePossibleMove();
-            Draw();
+            if(ActualPlayer().IA != null)
+            {
+                var move = ActualPlayer().IA.GetNextMove(board, 5, ActualPlayer().Val == player1.Val);
+                CellSelected(move.Item1, move.Item2);
+            }
+            else
+            {
+                Draw();
+            }
         }
         private void SetTimer()
         {
@@ -113,7 +121,6 @@ namespace OthelloJJ
         }
         private void Draw()
         {
-
             ScoreMozilla = 0;
             ScoreChrome = 0;
             for(int i=0; i < WIDTH; ++i)
@@ -184,9 +191,7 @@ namespace OthelloJJ
                         if(IsCellValid(i, j))
                         {
                             canPlay = true;
-
                             board[i, j] = possibleMovePlayer.Val;
-
                         }
                     }
                 }
@@ -223,7 +228,12 @@ namespace OthelloJJ
 
         public void CellSelected(int x, int y)
         {
-            if (board[x, y] == possibleMovePlayer.Val)
+            if(x == -1 && y == -1)
+            {
+                isLastPlayed = false;
+                Update();
+            }
+            else if (board[x, y] == possibleMovePlayer.Val)
             {
                 if (!timer.IsEnabled)
                 {
