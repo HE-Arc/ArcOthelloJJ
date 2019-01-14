@@ -136,8 +136,7 @@ namespace OthelloJJ
 
         private void ButtonRestore_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = ShowMessageBoxAndGetRespons("Charger Partie", "Voulez-vous vraiement charger une partie" +
-       "                                                   \n La partie démarre directement");
+            MessageBoxResult result = ShowMessageBoxAndGetRespons("Charger Partie", "Voulez-vous vraiement charger une partie ? \nLa partie démarre directement");
             if (result == MessageBoxResult.Yes)
             {
                 try
