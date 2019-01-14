@@ -107,56 +107,62 @@ namespace OthelloJJ
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-                saveFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
-                saveFileDialog.FilterIndex = 1;
-                saveFileDialog.RestoreDirectory = true;
 
-                if (saveFileDialog.ShowDialog() == true)
+                try
                 {
-                    BinarySerialization.WriteToBinaryFile(saveFileDialog.FileName,game);
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                    saveFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
+                    saveFileDialog.FilterIndex = 1;
+                    saveFileDialog.RestoreDirectory = true;
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        BinarySerialization.WriteToBinaryFile<Game>(saveFileDialog.FileName, game);
+                    }
                 }
-            }
-            catch (SerializationException exp)
-            {
-                MessageBox.Show("Erreur veuillez reessayer",
-                             "Erreur de sauvegarde",
-                             MessageBoxButton.OK,
-                             MessageBoxImage.Error);
-            }
-           
+                catch (SerializationException exp)
+                {
+                    MessageBox.Show("Erreur veuillez reessayer",
+                                 "Erreur de sauvegarde",
+                                 MessageBoxButton.OK,
+                                 MessageBoxImage.Error);
+                }
+            
 
 
         }
 
         private void ButtonRestore_Click(object sender, RoutedEventArgs e)
         {
-            try
+            MessageBoxResult result = ShowMessageBoxAndGetRespons("Charger Partie", "Voulez-vous vraiement charger une partie" +
+       "                                                   \n La partie démarre directement");
+            if (result == MessageBoxResult.Yes)
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-
-                openFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == true)
+                try
                 {
-                    Game loadedGamed = BinarySerialization.ReadFromBinaryFile<Game>(openFileDialog.FileName);
-                    this.game = loadedGamed;
-                                    }
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                    openFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
+                    openFileDialog.FilterIndex = 1;
+                    openFileDialog.RestoreDirectory = true;
+
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        game = BinarySerialization.ReadFromBinaryFile<Game>(openFileDialog.FileName);
+
+                    }
+                }
+                catch (SerializationException exp)
+                {
+                    MessageBox.Show("Erreur veuillez reessayer",
+                                 "Le fichier n'est pas de type .jj",
+                                 MessageBoxButton.OK,
+                                 MessageBoxImage.Error);
+                }
+
             }
-            catch (SerializationException exp)
-            {
-                MessageBox.Show("Erreur veuillez reessayer",
-                             "Le fichier n'est pas de type .jj",
-                             MessageBoxButton.OK,
-                             MessageBoxImage.Error);
-            }
-           
-            
 
         }
 

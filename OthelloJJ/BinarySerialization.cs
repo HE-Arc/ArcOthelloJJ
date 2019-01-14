@@ -20,6 +20,7 @@ namespace OthelloJJ
                 binaryFormatter.Serialize(stream, objectToWrite);
             }
             
+
         }
 
         public static T ReadFromBinaryFile<T>(string filePath)
