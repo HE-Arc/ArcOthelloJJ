@@ -90,7 +90,7 @@ namespace OthelloJJ
             MessageBoxResult result = ShowMessageBoxAndGetRespons("Redémarrer", "Voulez-vous vraiment redémarrer la partie");
             if (result == MessageBoxResult.Yes)
             {
-                game.clean();
+                game.Clean();
             }
             
         }
@@ -101,6 +101,10 @@ namespace OthelloJJ
             if (result == MessageBoxResult.Yes)
             {
                 Button2Player.IsEnabled = false;
+                Button1Player.IsEnabled = true;
+                Button0Player.IsEnabled = true;
+                game.SetIA(0);
+                game.Clean();
             }
         }
 
@@ -173,6 +177,10 @@ namespace OthelloJJ
             if (result == MessageBoxResult.Yes)
             {
                 Button1Player.IsEnabled = false;
+                Button2Player.IsEnabled = true;
+                Button0Player.IsEnabled = true;
+                game.SetIA(1);
+                game.Clean();
             }
         }
 
@@ -182,6 +190,10 @@ namespace OthelloJJ
             if (result == MessageBoxResult.Yes)
             {
                 Button0Player.IsEnabled = false;
+                Button1Player.IsEnabled = true;
+                Button2Player.IsEnabled = true;
+                game.SetIA(2);
+                game.Clean();
             }
 
         }

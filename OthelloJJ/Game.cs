@@ -43,7 +43,7 @@ namespace OthelloJJ
             [NonSerialized]
             public ImageSource img;
             public TimeSpan time { get; set; }
-            public IPlayable.IPlayable IA { get;}
+            public IPlayable.IPlayable IA { get; set; }
             public Data(ImageSource img , int val, TimeSpan time, IPlayable.IPlayable ia = null)
             {
                 this.Val = val;
@@ -60,7 +60,7 @@ namespace OthelloJJ
             ScoreMozilla = 0;
             isLastPlayed = false;
 
-            player1 = new Data(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0), new BoardJJ());
+            player1 = new Data(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0));
             player2 = new Data(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
             possibleMovePlayer = new Data(ImageSourceForBitmap(Properties.Resources.possibleMove), -2,new TimeSpan(0,0,0));
 
@@ -74,14 +74,11 @@ namespace OthelloJJ
             round++;
             MainWindow.mainWindow.gameGrid.Children.Clear();
             UpdatePossibleMove();
+            Draw();
             if(ActualPlayer().IA != null)
             {
                 var move = ActualPlayer().IA.GetNextMove(board, 5, ActualPlayer().Val == player1.Val);
                 CellSelected(move.Item1, move.Item2);
-            }
-            else
-            {
-                Draw();
             }
         }
         private void SetTimer()
@@ -245,7 +242,7 @@ namespace OthelloJJ
             }
         }
 
-        public void clean()
+        public void Clean()
         {
             timer.Stop();
             player1.time = new TimeSpan(0, 0, 0);
@@ -255,6 +252,26 @@ namespace OthelloJJ
             initVars();
             Update();
             
+        }
+
+        public void SetIA(int nb)
+        {
+            if (nb == 0)
+            {
+                player2.IA = null;
+                player1.IA = null;
+            }
+            else if(nb == 1)
+            {
+                player1.IA = new BoardJJ();
+                player2.IA = null;
+            }
+            else
+            {
+                player1.IA = new BoardJJ();
+                player2.IA = new BoardJJ();
+            }
+
         }
 
         private void changeCells(int x, int y)
