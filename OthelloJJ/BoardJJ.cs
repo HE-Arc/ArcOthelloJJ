@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace OthelloJJ
 {
+    [Serializable]
     class BoardJJ : IPlayable.IPlayable
     {
         private string name;
