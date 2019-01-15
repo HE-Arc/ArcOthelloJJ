@@ -30,6 +30,7 @@ namespace OthelloJJ
         private Data possibleMovePlayer;
         private int emptyState = -1;
 
+        private bool isGameRunning;
 
         private int round;
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
@@ -71,15 +72,18 @@ namespace OthelloJJ
 
         public void Update()
         {
-            round++;
-            MainWindow.mainWindow.gameGrid.Children.Clear();
-            UpdatePossibleMove();
-            Draw();
-            if(ActualPlayer().IA != null)
+            if(isGameRunning)
             {
-                var move = ActualPlayer().IA.GetNextMove(board, 5, ActualPlayer().Val == player1.Val);
-                CellSelected(move.Item1, move.Item2);
-            }
+                round++;
+                MainWindow.mainWindow.gameGrid.Children.Clear();
+                UpdatePossibleMove();
+                Draw();
+                if (ActualPlayer().IA != null)
+                {
+                    var move = ActualPlayer().IA.GetNextMove(board, 5, ActualPlayer().Val == player1.Val);
+                    CellSelected(move.Item1, move.Item2);
+                }
+            }  
         }
         private void SetTimer()
         {
@@ -97,6 +101,7 @@ namespace OthelloJJ
         private void initVars()
         {
             round = 0;
+            isGameRunning = true;
             for (int i = 0; i < WIDTH; ++i)
             {
                 for (int j = 0; j < HEIGHT; j++)
@@ -209,6 +214,7 @@ namespace OthelloJJ
                 {
                     msg = $"Partie terminé, Chrome et Firefox sont à égalités avec : {ScoreChrome} points\n";
                 }
+                isGameRunning = false;
                 MessageBox.Show(msg);
             }
             else if (canPlay == false)
