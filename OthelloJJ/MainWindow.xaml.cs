@@ -102,36 +102,30 @@ namespace OthelloJJ
             {
                 Button2Player.IsEnabled = false;
             }
-
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
 
+                saveFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = true;
 
-                try
+                if (saveFileDialog.ShowDialog() == true)
                 {
-                    SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-                    saveFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
-                    saveFileDialog.FilterIndex = 1;
-                    saveFileDialog.RestoreDirectory = true;
-
-                    if (saveFileDialog.ShowDialog() == true)
-                    {
-                        BinarySerialization.WriteToBinaryFile<Game>(saveFileDialog.FileName, game);
-                    }
+                    BinarySerialization.WriteToBinaryFile<Game>(saveFileDialog.FileName, game);
                 }
-                catch (SerializationException exp)
-                {
-                    MessageBox.Show("Erreur veuillez reessayer",
-                                 "Erreur de sauvegarde",
-                                 MessageBoxButton.OK,
-                                 MessageBoxImage.Error);
-                }
-            
-
-
+            }
+            catch (SerializationException exp)
+            {
+                MessageBox.Show("Erreur veuillez reessayer",
+                                "Erreur de sauvegarde",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
         }
 
         private void ButtonRestore_Click(object sender, RoutedEventArgs e)
@@ -171,6 +165,25 @@ namespace OthelloJJ
                               title,
                               MessageBoxButton.YesNo,
                               MessageBoxImage.Warning);
+        }
+
+        private void Button1Player_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = ShowMessageBoxAndGetRespons("1 Joueur", "Voulez-vous vraiment lancer une partie 1 Joueur");
+            if (result == MessageBoxResult.Yes)
+            {
+                Button1Player.IsEnabled = false;
+            }
+        }
+
+        private void Button0Player_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = ShowMessageBoxAndGetRespons("0 Joueur", "Voulez-vous vraiment lancer une partie 0 Joueur");
+            if (result == MessageBoxResult.Yes)
+            {
+                Button0Player.IsEnabled = false;
+            }
+
         }
     }
 }
