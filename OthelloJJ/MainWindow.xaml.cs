@@ -62,10 +62,10 @@ namespace OthelloJJ
             //Find mouse position inside the grid
             var point = Mouse.GetPosition(gameGrid);
 
-            int row = 0;
-            int col = 0;
-            double accumulatedHeight = 0.0;
-            double accumulatedWidth = 0.0;
+            var row = 0;
+            var col = 0;
+            var accumulatedHeight = 0.0;
+            var accumulatedWidth = 0.0;
 
             //Add height since we are bigger than mouse position
             foreach (var rowDefinition in gameGrid.RowDefinitions)
@@ -89,8 +89,8 @@ namespace OthelloJJ
 
         private void ButtonNettoyer_Click(object sender, RoutedEventArgs e)
         {
-            
-            MessageBoxResult result = ShowMessageBoxAndGetRespons("Redémarrer", "Voulez-vous vraiment redémarrer la partie");
+
+            var result = ShowMessageBoxAndGetRespons("Redémarrer", "Voulez-vous vraiment redémarrer la partie");
             if (result == MessageBoxResult.Yes)
             {
                 game.Clean();
@@ -100,7 +100,7 @@ namespace OthelloJJ
 
         private void Button2Player_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = ShowMessageBoxAndGetRespons("2 Joueurs", "Voulez-vous vraiment lancer une partie 2 Joueurs");
+            var result = ShowMessageBoxAndGetRespons("2 Joueurs", "Voulez-vous vraiment lancer une partie 2 Joueurs");
             if (result == MessageBoxResult.Yes)
             {
                 Button2Player.IsEnabled = false;
@@ -115,18 +115,19 @@ namespace OthelloJJ
         {
             try
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-                saveFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
-                saveFileDialog.FilterIndex = 1;
-                saveFileDialog.RestoreDirectory = true;
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*",
+                    FilterIndex = 1,
+                    RestoreDirectory = true
+                };
 
                 if (saveFileDialog.ShowDialog() == true)
                 {
                     BinarySerialization.WriteToBinaryFile<Game>(saveFileDialog.FileName, game);
                 }
             }
-            catch (SerializationException exp)
+            catch (SerializationException)
             {
                 MessageBox.Show("Erreur veuillez reessayer",
                                 "Erreur de sauvegarde",
@@ -137,16 +138,17 @@ namespace OthelloJJ
 
         private void ButtonRestore_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = ShowMessageBoxAndGetRespons("Charger Partie", "Voulez-vous vraiement charger une partie ? \nLa partie démarre directement");
+            var result = ShowMessageBoxAndGetRespons("Charger Partie", "Voulez-vous vraiement charger une partie ? \nLa partie démarre directement");
             if (result == MessageBoxResult.Yes)
             {
                 try
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-
-                    openFileDialog.Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*";
-                    openFileDialog.FilterIndex = 1;
-                    openFileDialog.RestoreDirectory = true;
+                    var openFileDialog = new OpenFileDialog
+                    {
+                        Filter = "jj files (*.jj)|*.jj|All files (*.*)|*.*",
+                        FilterIndex = 1,
+                        RestoreDirectory = true
+                    };
 
                     if (openFileDialog.ShowDialog() == true)
                     {
@@ -156,7 +158,7 @@ namespace OthelloJJ
 
                     }
                 }
-                catch (SerializationException exp)
+                catch (SerializationException)
                 {
                     MessageBox.Show("Erreur veuillez reessayer",
                                  "Le fichier n'est pas de type .jj",
@@ -178,7 +180,7 @@ namespace OthelloJJ
 
         private void Button1Player_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = ShowMessageBoxAndGetRespons("1 Joueur", "Voulez-vous vraiment lancer une partie 1 Joueur");
+            var result = ShowMessageBoxAndGetRespons("1 Joueur", "Voulez-vous vraiment lancer une partie 1 Joueur");
             if (result == MessageBoxResult.Yes)
             {
                 Button1Player.IsEnabled = false;
@@ -191,7 +193,7 @@ namespace OthelloJJ
 
         private void Button0Player_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = ShowMessageBoxAndGetRespons("0 Joueur", "Voulez-vous vraiment lancer une partie 0 Joueur");
+            var result = ShowMessageBoxAndGetRespons("0 Joueur", "Voulez-vous vraiment lancer une partie 0 Joueur");
             if (result == MessageBoxResult.Yes)
             {
                 Button0Player.IsEnabled = false;
