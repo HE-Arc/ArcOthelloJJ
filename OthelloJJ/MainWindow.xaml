@@ -22,8 +22,8 @@
                 <SolidColorBrush Color="#7FB2CCDF" Opacity="0.5"/>
             </Grid.Background>
         </Grid>
-        <Label Name="scoreMozilla" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,38.2,-8.6,332.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Label Name="scoreChrome" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,162.2,-8.6,211.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Label Name="scoreMozilla" Content="{Binding ScoreMozilla}" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,38.2,-8.6,332.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Label Name="scoreChrome" Content="{Binding ScoreChrome}" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,162.2,-8.6,211.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
         <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,69.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.467,1.626"  />
         <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,196.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.619,1.593" />
         <Border BorderBrush="LightGray" BorderThickness="2" Margin="0,6,0,1" Grid.Row="1">

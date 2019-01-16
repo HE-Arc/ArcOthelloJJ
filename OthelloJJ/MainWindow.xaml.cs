@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,6 @@ namespace OthelloJJ
         private int[,] board = new int[WIDTH, HEIGHT];
         private ImageSource imgMozilla;
         private ImageSource imgChorme;
-
         private Game game;
         public static MainWindow mainWindow;
 
@@ -38,6 +38,9 @@ namespace OthelloJJ
             InitializeComponent();
             mainWindow = this;
             game = new Game();
+
+            DataContext = game;
+
             imgChorme = game.ImageSourceForBitmap(Properties.Resources.chrome);
             imgMozilla = game.ImageSourceForBitmap(Properties.Resources.firefox);
             ImageChrome.Source = imgChorme;
@@ -147,7 +150,9 @@ namespace OthelloJJ
 
                     if (openFileDialog.ShowDialog() == true)
                     {
+                        game.Clean();
                         game = BinarySerialization.ReadFromBinaryFile<Game>(openFileDialog.FileName);
+                        DataContext = game;
 
                     }
                 }

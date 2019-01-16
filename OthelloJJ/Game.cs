@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -16,13 +17,41 @@ using System.Windows.Threading;
 namespace OthelloJJ
 {
     [Serializable]
-    class Game
+    class Game : INotifyPropertyChanged
     {
         public static int WIDTH = 9;
         public static int HEIGHT = 7;
+        private int scoreMozilla;
+        private int scoreChrome;
+
         private static DispatcherTimer timer;
-        private int ScoreChrome { get; set; }
-        private int ScoreMozilla { get; set; }
+        public int ScoreChrome
+        {
+            get
+            {
+                return scoreChrome;
+            }
+
+            set
+            {
+                scoreChrome = value;
+                OnPropertyChanged("ScoreChrome");
+            }
+        }
+        public int ScoreMozilla
+        {
+            get
+            {
+                return scoreMozilla;
+            }
+
+            set
+            {
+                scoreMozilla = value;
+                OnPropertyChanged("ScoreMozilla");
+            }
+        }
+
         private int[,] board;
 
         private Data player1;
@@ -36,6 +65,8 @@ namespace OthelloJJ
         private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
 
         private bool isLastPlayed;
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler PropertyChanged;
 
         [Serializable]
         private class Data
@@ -143,7 +174,6 @@ namespace OthelloJJ
                     }   
                 }
             }
-            DrawScore();
             DrawCurrentPlayer();
         }
         private void DrawCurrentPlayer(){
@@ -164,11 +194,7 @@ namespace OthelloJJ
             MainWindow.mainWindow.TimeMozilla.Content = player2.time.ToString("mm':'ss");
 
         }
-        private void DrawScore()
-        {
-            MainWindow.mainWindow.scoreChrome.Content = ScoreChrome;
-            MainWindow.mainWindow.scoreMozilla.Content = ScoreMozilla;
-        }
+   
         private void AddElement(ImageSource image, int x, int y)
         {
             Image img = new Image { Source = image };
@@ -259,6 +285,14 @@ namespace OthelloJJ
             Update();
             
         }
+
+       
+        protected virtual void OnPropertyChanged(String property)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+        }
+
 
         public void SetIA(int nb)
         {
@@ -386,6 +420,7 @@ namespace OthelloJJ
             player1.img = ImageSourceForBitmap(Properties.Resources.chrome);
             player2.img = ImageSourceForBitmap(Properties.Resources.firefox);
             possibleMovePlayer.img = ImageSourceForBitmap(Properties.Resources.possibleMove);
+             
             Draw();
             DrawTime();
             timer.Tick -= OnTimedEvent;
