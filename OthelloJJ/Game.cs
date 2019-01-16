@@ -25,6 +25,21 @@ namespace OthelloJJ
         private int scoreChrome;
 
         private static DispatcherTimer timer;
+
+        private int[,] board;
+
+        private Data player1;
+        private Data player2;
+        private Data possibleMovePlayer;
+        private int emptyState = -1;
+
+        private bool isGameRunning;
+
+        private int round;
+        private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
+
+        private bool isLastPlayed;
+
         public int ScoreChrome
         {
             get
@@ -52,19 +67,6 @@ namespace OthelloJJ
             }
         }
 
-        private int[,] board;
-
-        private Data player1;
-        private Data player2;
-        private Data possibleMovePlayer;
-        private int emptyState = -1;
-
-        private bool isGameRunning;
-
-        private int round;
-        private readonly int[,] possibleMove = { { -1, -1 }, {1,1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
-
-        private bool isLastPlayed;
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 

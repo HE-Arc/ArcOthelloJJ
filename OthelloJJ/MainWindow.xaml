@@ -27,13 +27,13 @@
         <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,69.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.467,1.626"  />
         <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,196.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.619,1.593" />
         <Border BorderBrush="LightGray" BorderThickness="2" Margin="0,6,0,1" Grid.Row="1">
-            <Grid Margin="20,24,21,101" >
-                <Button x:Name="ButtonSave" Content="Sauvegarder&#xD;&#xA;" Margin="11,27,10,0" Height="18" VerticalAlignment="Top" Click="ButtonSave_Click"/>
-                <Button x:Name="ButtonRestore" Content="Charger Partie" Margin="11,74,10,0" Height="19" VerticalAlignment="Top" Click="ButtonRestore_Click"/>
-                <Button x:Name="Button2Player" Content="2 Joueurs" Margin="10,203,11,0" Height="19" VerticalAlignment="Top" IsEnabled="False" Click="Button2Player_Click"/>
-                <Button x:Name="Button0Player" Content="0 Joueur" Margin="10,123,11,0" Height="19" VerticalAlignment="Top" Click="Button0Player_Click"/>
-                <Button x:Name="Button1Player" Content="1 Joueur" Margin="10,161,11,0" Height="19" VerticalAlignment="Top" Click="Button1Player_Click"/>
-                <Button x:Name="ButtonNettoyer" Content="Redémarrer" Margin="11,239,10,0" VerticalAlignment="Top" Click="ButtonNettoyer_Click"/>
+            <Grid Margin="20,62,21,63" >
+                <Button x:Name="ButtonSave" Content="Sauvegarder&#xD;&#xA;" Margin="11,31,10,0" Height="18" VerticalAlignment="Top" Click="ButtonSave_Click"/>
+                <Button x:Name="ButtonRestore" Content="Charger Partie" Margin="11,78,10,0" Height="19" VerticalAlignment="Top" Click="ButtonRestore_Click"/>
+                <Button x:Name="Button2Player" Content="2 Joueurs" Margin="10,207,11,0" Height="19" VerticalAlignment="Top" IsEnabled="False" Click="Button2Player_Click"/>
+                <Button x:Name="Button0Player" Content="0 Joueur" Margin="10,127,11,0" Height="19" VerticalAlignment="Top" Click="Button0Player_Click"/>
+                <Button x:Name="Button1Player" Content="1 Joueur" Margin="10,165,11,0" Height="19" VerticalAlignment="Top" Click="Button1Player_Click"/>
+                <Button x:Name="ButtonNettoyer" Content="Redémarrer" Margin="11,243,10,0" VerticalAlignment="Top" Click="ButtonNettoyer_Click"/>
             </Grid>
         </Border>
 

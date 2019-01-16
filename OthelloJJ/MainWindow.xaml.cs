@@ -21,13 +21,10 @@ using System.Windows.Shapes;
 namespace OthelloJJ
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static int WIDTH = 9;
-        private static int HEIGHT = 7;
-        private int[,] board = new int[WIDTH, HEIGHT];
         private ImageSource imgMozilla;
         private ImageSource imgChorme;
         private Game game;
@@ -36,15 +33,17 @@ namespace OthelloJJ
         public MainWindow()
         {
             InitializeComponent();
-            mainWindow = this;
+            mainWindow = this; //So we can access UI component from Game
             game = new Game();
 
             DataContext = game;
 
             imgChorme = game.ImageSourceForBitmap(Properties.Resources.chrome);
             imgMozilla = game.ImageSourceForBitmap(Properties.Resources.firefox);
+            //Draw player picture next to the score
             ImageChrome.Source = imgChorme;
             ImageMozilla.Source = imgMozilla;
+
             //Create column, row
             for (int i = 0; i < Game.HEIGHT; ++i)
             {
@@ -59,7 +58,8 @@ namespace OthelloJJ
 
         private void Grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //Find indices of selected cell
+            //Source : https://stackoverflow.com/a/20511247/7570047
+            //Find mouse position inside the grid
             var point = Mouse.GetPosition(gameGrid);
 
             int row = 0;
@@ -67,7 +67,7 @@ namespace OthelloJJ
             double accumulatedHeight = 0.0;
             double accumulatedWidth = 0.0;
 
-            // calc row mouse was over
+            //Add height since we are bigger than mouse position
             foreach (var rowDefinition in gameGrid.RowDefinitions)
             {
                 accumulatedHeight += rowDefinition.ActualHeight;
@@ -76,7 +76,7 @@ namespace OthelloJJ
                 row++;
             }
 
-            // calc col mouse was over
+            //Add width since we are bigger than mouse position
             foreach (var columnDefinition in gameGrid.ColumnDefinitions)
             {
                 accumulatedWidth += columnDefinition.ActualWidth;
@@ -84,7 +84,7 @@ namespace OthelloJJ
                     break;
                 col++;
             }
-            game.CellSelected(col, row);   
+            game.CellSelected(col, row);
         }
 
         private void ButtonNettoyer_Click(object sender, RoutedEventArgs e)
@@ -168,7 +168,7 @@ namespace OthelloJJ
 
         }
 
-        public MessageBoxResult ShowMessageBoxAndGetRespons(string title,string text)
+        private MessageBoxResult ShowMessageBoxAndGetRespons(string title,string text)
         {
             return MessageBox.Show(text,
                               title,
