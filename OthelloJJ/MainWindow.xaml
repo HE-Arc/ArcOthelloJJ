@@ -17,15 +17,15 @@
             <ColumnDefinition Width="427*"/>
             <ColumnDefinition Width="194*" MaxWidth="194"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gameGrid" Grid.Column="1" Margin="10,10,2,14" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown">
+        <Grid x:Name="gameGrid" Grid.Column="1" Margin="10,10,2,14" Grid.Row="1" ShowGridLines="True" PreviewMouseDown="Grid_PreviewMouseDown" MouseEnter="GameGrid_MouseEnter" MouseLeave="GameGrid_MouseLeave">
             <Grid.Background>
                 <SolidColorBrush Color="#7FB2CCDF" Opacity="0.5"/>
             </Grid.Background>
         </Grid>
-        <Label Name="scoreMozilla" Content="{Binding ScoreMozilla}" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,38.2,-8.6,332.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Label Name="scoreChrome" Content="{Binding ScoreChrome}" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,162.2,-8.6,211.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
-        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,69.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.467,1.626"  />
-        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,196.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.619,1.593" />
+        <Label Name="scoreMozilla" Content="{Binding ScoreMozilla}" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,74.2,-8.6,296.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Label Name="scoreChrome" Content="{Binding ScoreChrome}" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,198.2,-8.6,175.2" Grid.Row="1" Width="111" FontSize="36" FontFamily="Showcard Gothic"/>
+        <Image Name="ImageMozilla" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,105.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.467,1.626"  />
+        <Image Name="ImageChrome" Grid.Column="2" HorizontalAlignment="Left" Height="61" Margin="27.2,232.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="42" RenderTransformOrigin="0.619,1.593" />
         <Border BorderBrush="LightGray" BorderThickness="2" Margin="0,6,0,1" Grid.Row="1">
             <Grid Margin="20,62,21,63" >
                 <Button x:Name="ButtonSave" Content="Sauvegarder&#xD;&#xA;" Margin="11,31,10,0" Height="18" VerticalAlignment="Top" Click="ButtonSave_Click"/>
@@ -39,8 +39,8 @@
 
         <Image x:Name="ImageCurrentPlayer" Margin="244,21,103,10" Grid.Column="1"/>
         <Label x:Name="labelCurrentPlayer" Margin="59,36,187,23" FontSize="36" FontFamily="Showcard Gothic" HorizontalAlignment="Center" Width="180" Content="TOUR DE :" Grid.Column="1"/>
-        <Label x:Name="TimeMozilla" Content="00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,93.2,-8.6,277.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
-        <Label x:Name="TimeChrome" Content="00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,223.2,-8.6,147.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
+        <Label x:Name="TimeMozilla" Content="00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,129.2,-8.6,241.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
+        <Label x:Name="TimeChrome" Content="00:00" Grid.Column="2" HorizontalAlignment="Left" Margin="91.2,259.2,-8.6,111.2" Width="111" FontSize="18" FontFamily="Showcard Gothic" Grid.Row="1"/>
 
 
     </Grid>

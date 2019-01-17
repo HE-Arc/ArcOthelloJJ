@@ -73,6 +73,8 @@ namespace OthelloJJ
                 OnPropertyChanged("ScoreMozilla");
             }
         }
+
+        public bool IsMouseOnGrid { get; set; }
         #endregion
 
         [field: NonSerialized]
@@ -105,7 +107,7 @@ namespace OthelloJJ
             ScoreChrome = 0;
             ScoreMozilla = 0;
             isLastPlayed = false;
-
+            IsMouseOnGrid = false;
             player1 = new Data(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0));
             player2 = new Data(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
             possibleMovePlayer = new Data(ImageSourceForBitmap(Properties.Resources.possibleMove), -2,new TimeSpan(0,0,0));
@@ -206,6 +208,34 @@ namespace OthelloJJ
                 return null;
             }
         }
+
+        public void Draw()
+        {
+
+            ScoreMozilla = 0;
+            ScoreChrome = 0;
+            for (int i = 0; i < WIDTH; ++i)
+            {
+                for (int j = 0; j < HEIGHT; j++)
+                {
+                    if (board[i, j] == possibleMovePlayer.Val && IsMouseOnGrid)
+                    {
+                        AddElement(possibleMovePlayer.img, i, j);
+                    }
+                    else if (board[i, j] == player1.Val)
+                    {
+                        ScoreChrome++;
+                        AddElement(player1.img, i, j);
+                    }
+                    else if (board[i, j] == player2.Val)
+                    {
+                        ScoreMozilla++;
+                        AddElement(player2.img, i, j);
+                    }
+                }
+            }
+            DrawCurrentPlayer();
+        }
         #endregion
 
         #region protected method
@@ -267,30 +297,7 @@ namespace OthelloJJ
                 }
             }
         }
-        private void Draw()
-        {
-            ScoreMozilla = 0;
-            ScoreChrome = 0;
-            for(int i=0; i < WIDTH; ++i)
-            {
-                for (int j = 0; j < HEIGHT; j++)
-                {
-                    if (board[i, j] == possibleMovePlayer.Val)
-                    { 
-                        AddElement(possibleMovePlayer.img, i, j);
-                    } else if(board[i, j] == player1.Val)
-                    {
-                        ScoreChrome++;
-                        AddElement(player1.img, i, j);
-                    } else if(board[i, j] == player2.Val)
-                    {
-                        ScoreMozilla++;
-                        AddElement(player2.img, i, j);
-                    }   
-                }
-            }
-            DrawCurrentPlayer();
-        }
+        
         private void DrawCurrentPlayer(){
             if(ActualPlayer().Val==player1.Val)
             {

@@ -56,7 +56,7 @@ namespace OthelloJJ
             
         }
 
-        private void Grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private Tuple<int,int> Getindex()
         {
             //Source : https://stackoverflow.com/a/20511247/7570047
             //Find mouse position inside the grid
@@ -84,7 +84,12 @@ namespace OthelloJJ
                     break;
                 col++;
             }
-            game.CellSelected(col, row);
+            return new Tuple<int, int>(col, row);
+        }
+        private void Grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var pos=Getindex();
+            game.CellSelected(pos.Item1, pos.Item2);
         }
 
         private void ButtonNettoyer_Click(object sender, RoutedEventArgs e)
@@ -203,6 +208,20 @@ namespace OthelloJJ
                 game.Clean();
             }
 
+        }
+
+        private void GameGrid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            gameGrid.Children.Clear();
+            game.IsMouseOnGrid = true;
+            game.Draw();
+        }
+
+        private void GameGrid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            gameGrid.Children.Clear();
+            game.IsMouseOnGrid = false;
+            game.Draw();
         }
     }
 }
