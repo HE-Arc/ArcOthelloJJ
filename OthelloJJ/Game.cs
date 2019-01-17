@@ -208,7 +208,9 @@ namespace OthelloJJ
                 return null;
             }
         }
-
+        /// <summary>
+        /// Method that draw the grid content
+        /// </summary>
         public void Draw()
         {
 
