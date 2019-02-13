@@ -28,10 +28,12 @@ namespace OthelloJJ
         public BoardJJ()
         { 
             this.name = "BoardJJ (Jaggi et Jeanneret)";
+            possibleShot = new List<Tuple<int, int>>();
         }
 
         public BoardJJ(BoardJJ old)
         {
+            possibleShot = new List<Tuple<int, int>>();
             this.name = old.name;
             this.width = old.width;
             this.height = old.height;
@@ -82,29 +84,21 @@ namespace OthelloJJ
         /// <returns>Tuple next move</returns>
         public Tuple<int, int> GetNextMove(int[,] game, int level, bool whiteTurn)
         {
-            var listPossibleMove = new List<Tuple<int, int>>();
             width = game.GetLength(0);
             height = game.GetLength(1);
             this.game = game;
             actualVal = (whiteTurn) ? pWhite : pBlack;
-            for (int x = 0; x < width; ++x)
-            {
-                for(int y = 0; y<height; ++y)
-                {
-                    if (game[x, y] == -1 || game[x, y] == -2) // -2 = possible move in interface
-                    {
-                        if(IsPlayable(x, y, whiteTurn))
-                        {
-                            listPossibleMove.Add(new Tuple<int, int>(x, y));
-                        }
-                    }
-                }
-            }
-            if(listPossibleMove.Count < 1)
+            DefPossibleShot();
+            if(possibleShot.Count < 1)
             {
                 return new Tuple<int, int>(-1, -1);
             }
-            
+            var tpl = AlphaBeta(this, 5, 1, int.MaxValue);
+            if(tpl.Item2 == null)
+            {
+                return new Tuple<int, int>(-1, -1);
+            }
+            return tpl.Item2;            
         }
 
         /// <summary>
@@ -208,7 +202,25 @@ namespace OthelloJJ
 
         private int Eval()
         {
-            return 0;
+            int nbPoint = CptValue(actualVal);
+            if (game[0,0]==actualVal)
+            {
+                nbPoint += 10;
+            }
+            if(game[0, height-1] == actualVal)
+            {
+                nbPoint += 10;
+            }
+            if(game[width-1, 0] == actualVal)
+            {
+                nbPoint += 10;
+            }
+            if(game[width-1, height-1] ==actualVal)
+            {
+                nbPoint += 10;
+            }
+            
+            return nbPoint;
         }
 
         private bool IsWayValid(int x, int y, int vx, int vy)
@@ -230,6 +242,24 @@ namespace OthelloJJ
         private bool IsInsideBoard(int x, int y)
         {
             return x < width && x >= 0 && y < height && y >= 0;
+        }
+
+        private void DefPossibleShot()
+        {
+            possibleShot = new List<Tuple<int, int>>();
+            for (int x = 0; x < width; ++x)
+            {
+                for (int y = 0; y < height; ++y)
+                {
+                    if (game[x, y] == -1 || game[x, y] == -2) // -2 = possible move in interface
+                    {
+                        if (IsPlayable(x, y, actualVal == pWhite))
+                        {
+                            possibleShot.Add(new Tuple<int, int>(x, y));
+                        }
+                    }
+                }
+            }
         }
 
         private int CptValue(int v)
