@@ -28,12 +28,10 @@ namespace OthelloJJ
         public BoardJJ()
         { 
             this.name = "BoardJJ (Jaggi et Jeanneret)";
-            possibleShot = new List<Tuple<int, int>>();
         }
 
         public BoardJJ(BoardJJ old)
         {
-            possibleShot = new List<Tuple<int, int>>();
             this.name = old.name;
             this.width = old.width;
             this.height = old.height;
@@ -168,11 +166,13 @@ namespace OthelloJJ
 
         private Tuple<int,Tuple<int,int>> AlphaBeta(BoardJJ root, int depth, int minOrMax, int parentValue)
         {
+            root.DefPossibleShot();
             if(depth==0 || root.Final())
             {
                 return new Tuple<int, Tuple<int, int>>(root.Eval(), null);
             }
-            int optVal = minOrMax * int.MaxValue;
+            DefPossibleShot();
+            int optVal = minOrMax * -int.MaxValue;
             Tuple<int,int> optOp = null;
             foreach (var op in possibleShot)
             {
