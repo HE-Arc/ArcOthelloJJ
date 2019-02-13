@@ -90,6 +90,9 @@ namespace OthelloJJ
             if(possibleShot.Count < 1)
             {
                 return new Tuple<int, int>(-1, -1);
+            } else if(possibleShot.Count == 1)
+            {
+                return possibleShot.First();
             }
             var tpl = AlphaBeta(this, 5, 1, int.MaxValue);
             if(tpl.Item2 == null)
@@ -171,14 +174,13 @@ namespace OthelloJJ
             {
                 return new Tuple<int, Tuple<int, int>>(root.Eval(), null);
             }
-            DefPossibleShot();
-            int optVal = minOrMax * -int.MaxValue;
+            int optVal = minOrMax * -1 * int.MaxValue;
             Tuple<int,int> optOp = null;
             foreach (var op in possibleShot)
             {
                 BoardJJ child = new BoardJJ(this);
                 child.PlayMove(op.Item1, op.Item2, actualVal == pWhite);
-                var tpl = AlphaBeta(child, depth - 1, -minOrMax, optVal);
+                var tpl = AlphaBeta(child, depth - 1, -1 * minOrMax, optVal);
                 var val = tpl.Item1;
                 if (val * minOrMax > optVal * minOrMax)
                 {
@@ -202,24 +204,25 @@ namespace OthelloJJ
 
         private int Eval()
         {
-            int nbPoint = CptValue(actualVal);
+            int nbPoint = CptValue(actualVal) - CptValue(1-actualVal);
+            int cornerValue = 5;
             if (game[0,0]==actualVal)
             {
-                nbPoint += 10;
+                nbPoint += cornerValue;
             }
             if(game[0, height-1] == actualVal)
             {
-                nbPoint += 10;
+                nbPoint += cornerValue;
             }
             if(game[width-1, 0] == actualVal)
             {
-                nbPoint += 10;
+                nbPoint += cornerValue;
             }
             if(game[width-1, height-1] ==actualVal)
             {
-                nbPoint += 10;
+                nbPoint += cornerValue;
             }
-            
+            //nbPoint += possibleShot.Count * 3;
             return nbPoint;
         }
 
