@@ -210,11 +210,11 @@ namespace OthelloJJ
             {
                 nbPoint += cornerValue;
             }
-            if(game[0, height] == actualVal)
+            if(game[0, height-1] == actualVal)
             {
                 nbPoint += cornerValue;
             }
-            if(game[width, 0] == actualVal)
+            if(game[width-1, 0] == actualVal)
             {
                 nbPoint += cornerValue;
             }
