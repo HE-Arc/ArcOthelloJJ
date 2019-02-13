@@ -179,7 +179,7 @@ namespace OthelloJJ
             else
             {
                 player1.IA = new BoardJJ();
-                player2.IA = new BoardJJ();
+                player2.IA = new Bidon();
             }
         }
 

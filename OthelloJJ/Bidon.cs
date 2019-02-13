@@ -7,44 +7,24 @@ using System.Threading.Tasks;
 namespace OthelloJJ
 {
     [Serializable]
-    class BoardJJ : IPlayable.IPlayable
+    class Bidon : IPlayable.IPlayable
     {
         private readonly string name;
         private int[,] game;
-        private List<Tuple<int, int>> possibleShot;
+        private readonly int[,] possibleMove = { { -1, -1 }, { 1, 1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
+        private readonly int pWhite = 0;
+        private readonly int pBlack = 1;
         private int actualVal;
         private int width;
         private int height;
 
-        private static readonly int[,] possibleMove = { { -1, -1 }, { 1, 1 }, { -1, 1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
-        private static readonly int pWhite = 0;
-        private static readonly int pBlack = 1;
-
-
-
         /// <summary>
         /// Default constructor
         /// </summary>
-        public BoardJJ()
+        public Bidon()
         { 
-            this.name = "BoardJJ (Jaggi et Jeanneret)";
+            this.name = "Board bidon";
         }
-
-        public BoardJJ(BoardJJ old)
-        {
-            this.name = old.name;
-            this.width = old.width;
-            this.height = old.height;
-            this.actualVal = 1 - actualVal; //Next turn
-            this.game = new int[width, height];
-            for (int x = 0; x < width; ++x)
-            {
-                for (int y = 0; y < height; ++y)
-                {
-                    this.game[x,y] = old.game[x, y];
-                }
-            }
-       }
 
         /// <summary>
         /// Count number of black point in game
@@ -75,6 +55,8 @@ namespace OthelloJJ
 
         /// <summary>
         /// Return the next possible move
+        /// In this IA it  return the first valid move
+        /// It only serves to demonstrate that our UI work with an IA
         /// </summary>
         /// <param name="game"></param>
         /// <param name="level"></param>
@@ -82,7 +64,6 @@ namespace OthelloJJ
         /// <returns>Tuple next move</returns>
         public Tuple<int, int> GetNextMove(int[,] game, int level, bool whiteTurn)
         {
-            var listPossibleMove = new List<Tuple<int, int>>();
             width = game.GetLength(0);
             height = game.GetLength(1);
             this.game = game;
@@ -95,16 +76,12 @@ namespace OthelloJJ
                     {
                         if(IsPlayable(x, y, whiteTurn))
                         {
-                            listPossibleMove.Add(new Tuple<int, int>(x, y));
+                            return new Tuple<int, int>(x, y);
                         }
                     }
                 }
             }
-            if(listPossibleMove.Count < 1)
-            {
-                return new Tuple<int, int>(-1, -1);
-            }
-            
+            return new Tuple<int, int>(-1, -1);
         }
 
         /// <summary>
@@ -170,45 +147,6 @@ namespace OthelloJJ
                 return true;
             }
             return false;
-        }
-
-        private Tuple<int,Tuple<int,int>> AlphaBeta(BoardJJ root, int depth, int minOrMax, int parentValue)
-        {
-            if(depth==0 || root.Final())
-            {
-                return new Tuple<int, Tuple<int, int>>(root.Eval(), null);
-            }
-            int optVal = minOrMax * int.MaxValue;
-            Tuple<int,int> optOp = null;
-            foreach (var op in possibleShot)
-            {
-                BoardJJ child = new BoardJJ(this);
-                child.PlayMove(op.Item1, op.Item2, actualVal == pWhite);
-                var tpl = AlphaBeta(child, depth - 1, -minOrMax, optVal);
-                var val = tpl.Item1;
-                if (val * minOrMax > optVal * minOrMax)
-                {
-                    optVal = val;
-                    optOp = op;
-                    if (optVal * minOrMax > parentValue * minOrMax)
-                    {
-                        break;
-                    }
-                }
-            }
-            return new Tuple<int, Tuple<int,int>>(optVal, optOp);
-        }
-
-        private bool Final()
-        {
-            /* Return true if there is no valid shot */
-            return possibleShot.Count < 1;
-        }
-        
-
-        private int Eval()
-        {
-            return 0;
         }
 
         private bool IsWayValid(int x, int y, int vx, int vy)
