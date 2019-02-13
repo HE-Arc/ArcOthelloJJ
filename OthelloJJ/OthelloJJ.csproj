@@ -68,6 +68,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BinarySerialization.cs" />
+    <Compile Include="Bidon.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="BoardJJ.cs" />
     <Compile Include="MainWindow.xaml.cs">
