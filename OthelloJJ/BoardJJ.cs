@@ -176,9 +176,10 @@ namespace OthelloJJ
             }
             int optVal = minOrMax * -1 * int.MaxValue;
             Tuple<int,int> optOp = null;
-            foreach (var op in possibleShot)
+            foreach (var op in root.possibleShot)
             {
                 BoardJJ child = new BoardJJ(this);
+                child.PlayMove(op.Item1, op.Item2, actualVal == pWhite);
                 child.PlayMove(op.Item1, op.Item2, actualVal == pWhite);
                 var tpl = AlphaBeta(child, depth - 1, -1 * minOrMax, optVal);
                 var val = tpl.Item1;
@@ -205,7 +206,7 @@ namespace OthelloJJ
         private int Eval()
         {
             int nbPoint = CptValue(actualVal) - CptValue(1-actualVal);
-            int cornerValue = 5;
+            int cornerValue = 3;
             if (game[0,0]==actualVal)
             {
                 nbPoint += cornerValue;
