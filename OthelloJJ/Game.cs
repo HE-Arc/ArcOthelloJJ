@@ -111,7 +111,6 @@ namespace OthelloJJ
             IsMouseOnGrid = false;
             player1 = new Data(ImageSourceForBitmap(Properties.Resources.chrome), 0,new TimeSpan(0,0,0));
             player2 = new Data(ImageSourceForBitmap(Properties.Resources.firefox), 1,new TimeSpan(0,0,0));
-            player2.IA = new BoardJJ();
             possibleMovePlayer = new Data(ImageSourceForBitmap(Properties.Resources.possibleMove), -2,new TimeSpan(0,0,0));
 
             SetTimer();
@@ -180,7 +179,7 @@ namespace OthelloJJ
             else
             {
                 player1.IA = new BoardJJ();
-                player2.IA = new BoardJJ();
+                player2.IA = new IAOthelloMillenium.IAMilleniumBoard();
             }
         }
 

@@ -38,6 +38,9 @@
     <Reference Include="IPlayable">
       <HintPath>.\IPlayable.dll</HintPath>
     </Reference>
+    <Reference Include="OthelloMilleniumAI">
+      <HintPath>..\..\Tournament\OthelloMilleniumAI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
