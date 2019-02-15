@@ -26,6 +26,28 @@ namespace OthelloJJ
         public BoardJJ()
         {
             this.name = "BoardJJ (Jaggi et Jeanneret)";
+            width = 9;
+            height = 7;
+            game = new int[width, height];
+            for (int i = 0; i < width; ++i)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (i == 3 && j == 4 || i == 4 && j == 3)
+                    {
+                        game[i, j] = pBlack;
+                    }
+                    else if (i == 4 && j == 4 || i == 3 && j == 3)
+                    {
+                        game[i, j] = pWhite;
+                    }
+                    else
+                    {
+                        game[i, j] = -1;
+                    }
+                }
+            }
+
         }
 
         public BoardJJ(BoardJJ old)
