@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OthelloJJ
+namespace OthelloIAJJ
 {
     [Serializable]
-    class BoardJJ : IPlayable.IPlayable
+    class OthelloIAJJBoard : IPlayable.IPlayable
     {
         private readonly string name;
         private int[,] game;
@@ -23,12 +23,12 @@ namespace OthelloJJ
         /// <summary>
         /// Default constructor
         /// </summary>
-        public BoardJJ()
+        public OthelloIAJJBoard()
         {
             this.name = "BoardJJ (Jaggi et Jeanneret)";
         }
 
-        public BoardJJ(BoardJJ old)
+        public OthelloIAJJBoard(OthelloIAJJBoard old)
         {
             this.name = old.name;
             this.width = old.width;
@@ -166,7 +166,7 @@ namespace OthelloJJ
             return false;
         }
 
-        private Tuple<int, Tuple<int, int>> AlphaBeta(BoardJJ root, int depth, int minOrMax, int parentValue)
+        private Tuple<int, Tuple<int, int>> AlphaBeta(OthelloIAJJBoard root, int depth, int minOrMax, int parentValue)
         {
             root.DefPossibleShot();
             if (depth == 0 || root.Final())
@@ -177,7 +177,7 @@ namespace OthelloJJ
             Tuple<int, int> optOp = null;
             foreach (var op in root.possibleShot)
             {
-                BoardJJ child = new BoardJJ(this);
+                OthelloIAJJBoard child = new OthelloIAJJBoard(this);
                 child.PlayMove(op.Item1, op.Item2, child.actualVal == pWhite);
                 var tpl = AlphaBeta(child, depth - 1, -1 * minOrMax, optVal);
                 var val = tpl.Item1;
