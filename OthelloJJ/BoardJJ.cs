@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace OthelloJJ
 {
+    /// <summary>
+    /// This class implements IPlayable and contains the IA implementation
+    /// </summary>
     [Serializable]
     class BoardJJ : IPlayable.IPlayable
     {
@@ -31,7 +34,7 @@ namespace OthelloJJ
             game = new int[width, height];
             for (int i = 0; i < width; ++i)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < height; ++j)
                 {
                     if (i == 3 && j == 4 || i == 4 && j == 3)
                     {
@@ -229,7 +232,7 @@ namespace OthelloJJ
             int fixedPoint = 20;
             for (int i = 0; i < width; ++i)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < height; ++j)
                 {
                     if (game[i, j] == actualVal)
                     {
@@ -337,7 +340,7 @@ namespace OthelloJJ
             int iCpt = 0;
             for (int i = 0; i < width; ++i)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < height; ++j)
                 {
                     if (game[i, j] == v)
                     {
